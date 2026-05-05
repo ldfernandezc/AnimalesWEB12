@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pangolines — El Mamífero Más Traficado del Mundo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1a0f;
+    --bg2: #122016;
+    --bg3: #1a2e1e;
+    --accent: #7ecf6e;
+    --accent2: #4a9a5e;
+    --gold: #c9a227;
+    --gold2: #f0c94a;
+    --text: #e8f0e4;
+    --text2: #a8bfa0;
+    --text3: #6a8a60;
+    --scale1: #3d6b3a;
+    --scale2: #2d5228;
+    --scale3: #1e3a1a;
+    --border: rgba(126,207,110,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(13,26,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 3rem;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--gold); font-style: italic; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--text2); text-decoration: none;
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    padding: 6rem 3rem 4rem;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 60% 50%, rgba(74,154,94,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(201,162,39,0.06) 0%, transparent 60%),
+      linear-gradient(160deg, #0d1a0f 0%, #0a1a0d 50%, #0f1e0c 100%);
+  }
+  .scales-bg {
+    position: absolute; inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cellipse cx='30' cy='35' rx='24' ry='18' fill='%237ecf6e'/%3E%3Cellipse cx='0' cy='5' rx='24' ry='18' fill='%237ecf6e'/%3E%3Cellipse cx='60' cy='5' rx='24' ry='18' fill='%237ecf6e'/%3E%3C/svg%3E");
+    background-size: 60px 60px;
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 700px;
+    animation: fadeUp 1.2s ease both;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(126,207,110,0.12);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 0.4rem 1rem; border-radius: 2rem;
+    margin-bottom: 2rem;
+    animation: fadeUp 1s ease both 0.2s;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 900; line-height: 0.95;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--accent);
+    display: block;
+  }
+  .hero-desc {
+    font-size: 1.15rem; color: var(--text2); line-height: 1.8;
+    max-width: 540px; margin-bottom: 3rem;
+  }
+  .hero-stats {
+    display: flex; gap: 2rem; flex-wrap: wrap;
+  }
+  .stat-pill {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 1rem; padding: 0.8rem 1.5rem;
+    text-align: center;
+    transition: transform 0.3s, background 0.3s;
+  }
+  .stat-pill:hover {
+    transform: translateY(-3px);
+    background: rgba(126,207,110,0.08);
+  }
+  .stat-pill .num {
+    display: block; font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700; color: var(--gold2);
+    line-height: 1;
+  }
+  .stat-pill .lbl {
+    display: block; font-size: 0.7rem; color: var(--text3);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-top: 0.3rem;
+  }
+
+  /* ─── PANGOLIN ILLUSTRATION ─── */
+  .hero-illustration {
+    position: absolute; right: 3rem; bottom: 0;
+    width: min(45vw, 520px);
+    opacity: 0.85;
+    animation: floatAnim 6s ease-in-out infinite;
+  }
+  @keyframes floatAnim {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-18px); }
+  }
+
+  /* ─── SCROLL INDICATOR ─── */
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0.4rem; z-index: 2;
+    animation: bounce 2s ease infinite;
+    color: var(--text3);
+    font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+  }
+  .scroll-hint::after {
+    content: ''; display: block;
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--text3), transparent);
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ─── SECTION BASE ─── */
+  section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--accent2);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700; line-height: 1.1;
+    color: var(--text); margin-bottom: 1.5rem;
+  }
+  .section-title em { color: var(--accent); font-style: italic; }
+  .section-lead {
+    font-size: 1.05rem; color: var(--text2); line-height: 1.9;
+    max-width: 680px; margin-bottom: 3rem;
+  }
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  /* ─── SPECIES GRID ─── */
+  .species-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .species-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.5rem;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    cursor: default;
+  }
+  .species-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .species-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(126,207,110,0.4);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  }
+  .species-card:hover::before { opacity: 1; }
+  .species-icon {
+    font-size: 2.5rem; margin-bottom: 1rem;
+  }
+  .species-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; margin-bottom: 0.3rem; color: var(--text);
+  }
+  .species-card .sci {
+    font-style: italic; font-size: 0.8rem; color: var(--text3);
+    margin-bottom: 0.8rem; font-family: 'DM Mono', monospace;
+  }
+  .species-card p { font-size: 0.88rem; color: var(--text2); line-height: 1.7; }
+  .status-badge {
+    display: inline-block;
+    font-size: 0.65rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.25rem 0.7rem; border-radius: 2rem;
+    margin-top: 0.8rem;
+  }
+  .status-cr { background: rgba(220,53,69,0.15); color: #ff6b7a; border: 1px solid rgba(220,53,69,0.3); }
+  .status-en { background: rgba(201,162,39,0.15); color: var(--gold2); border: 1px solid rgba(201,162,39,0.3); }
+  .status-vu { background: rgba(74,154,94,0.15); color: var(--accent); border: 1px solid rgba(74,154,94,0.3); }
+
+  /* ─── ANATOMY INTERACTIVE ─── */
+  .anatomy-section {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 6rem 0; overflow: hidden;
+  }
+  .anatomy-inner {
+    max-width: 1200px; margin: 0 auto;
+    padding: 0 3rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+  .anatomy-vis {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .anatomy-vis svg { width: 100%; max-width: 440px; }
+  .anatomy-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; margin-bottom: 1rem; color: var(--text);
+    min-height: 2rem;
+  }
+  .anatomy-info p {
+    color: var(--text2); line-height: 1.8; font-size: 0.95rem;
+    min-height: 5rem;
+  }
+  .anatomy-tabs {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    margin-top: 2rem;
+  }
+  .tab-btn {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--text3); font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem; letter-spacing: 0.05em;
+    padding: 0.5rem 1.2rem; border-radius: 2rem;
+    cursor: pointer; transition: all 0.25s;
+  }
+  .tab-btn:hover, .tab-btn.active {
+    background: rgba(126,207,110,0.12);
+    border-color: var(--accent2);
+    color: var(--accent);
+  }
+
+  /* ─── FACT STRIPS ─── */
+  .facts-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+    margin-top: 3rem;
+  }
+  .fact-cell {
+    background: var(--bg);
+    padding: 1.8rem 1.5rem;
+    text-align: center;
+    transition: background 0.3s;
+  }
+  .fact-cell:hover { background: var(--bg2); }
+  .fact-cell .icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+  .fact-cell .val {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700; color: var(--accent);
+    display: block; margin-bottom: 0.3rem;
+  }
+  .fact-cell .desc {
+    font-size: 0.8rem; color: var(--text3);
+    line-height: 1.4;
+  }
+
+  /* ─── THREATS ─── */
+  .threats-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem; margin-top: 2rem;
+  }
+  .threat-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 16px; padding: 2rem;
+    position: relative;
+  }
+  .threat-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; margin-bottom: 0.8rem;
+    color: var(--text);
+  }
+  .threat-card p { font-size: 0.88rem; color: var(--text2); line-height: 1.7; }
+  .threat-num {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 3rem; font-weight: 500;
+    color: rgba(126,207,110,0.06);
+    line-height: 1;
+  }
+  .progress-bar {
+    height: 3px; background: var(--bg3);
+    border-radius: 2px; margin-top: 1.2rem;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent2), var(--gold));
+    transition: width 1.5s ease;
+    width: 0;
+  }
+
+  /* ─── CONSERVATION TIMELINE ─── */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin-top: 2rem;
+  }
+  .timeline::before {
+    content: ''; position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 2.5rem;
+    padding-left: 2rem;
+    opacity: 0; transform: translateX(-20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .timeline-item.visible {
+    opacity: 1; transform: translateX(0);
+  }
+  .timeline-item::before {
+    content: ''; position: absolute;
+    left: -2.4rem; top: 0.4rem;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent2);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 3px var(--scale1);
+  }
+  .timeline-item .year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem; color: var(--accent2);
+    margin-bottom: 0.4rem;
+  }
+  .timeline-item h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+  .timeline-item p { font-size: 0.85rem; color: var(--text2); line-height: 1.7; }
+
+  /* ─── IMAGE GALLERY ─── */
+  .gallery-section {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 5rem 0;
+  }
+  .gallery-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 280px 280px;
+    gap: 1rem; margin-top: 2rem;
+  }
+  .gallery-item {
+    border-radius: 12px; overflow: hidden;
+    position: relative; cursor: pointer;
+  }
+  .gallery-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s ease;
+    filter: saturate(0.8) brightness(0.85);
+  }
+  .gallery-item:hover img {
+    transform: scale(1.05);
+    filter: saturate(1) brightness(0.9);
+  }
+  .gallery-item:first-child { grid-row: span 2; }
+  .gallery-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 1.5rem 1rem 1rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    font-size: 0.75rem; color: rgba(255,255,255,0.7);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .gallery-item:hover .gallery-caption { opacity: 1; }
+
+  /* ─── FOOD / BEHAVIOR ─── */
+  .behavior-cards {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 1.5rem; margin-top: 2rem;
+  }
+  .beh-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.8rem;
+    transition: transform 0.3s;
+  }
+  .beh-card:hover { transform: translateY(-4px); }
+  .beh-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: rgba(126,207,110,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 1.2rem;
+  }
+  .beh-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; color: var(--text); margin-bottom: 0.6rem;
+  }
+  .beh-card p { font-size: 0.85rem; color: var(--text2); line-height: 1.7; }
+
+  /* ─── QUIZ ─── */
+  .quiz-section {
+    background: linear-gradient(135deg, var(--bg2) 0%, var(--bg) 100%);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 5rem 0;
+  }
+  .quiz-inner { max-width: 680px; margin: 0 auto; padding: 0 3rem; text-align: center; }
+  .quiz-q {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; color: var(--text);
+    margin-bottom: 2rem; line-height: 1.5;
+  }
+  .quiz-options {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1rem; margin-bottom: 1.5rem;
+  }
+  .quiz-opt {
+    background: var(--bg); border: 1px solid var(--border);
+    color: var(--text2); font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; padding: 1rem; border-radius: 12px;
+    cursor: pointer; transition: all 0.25s; text-align: center;
+  }
+  .quiz-opt:hover { border-color: var(--accent2); color: var(--accent); }
+  .quiz-opt.correct { background: rgba(126,207,110,0.15); border-color: var(--accent); color: var(--accent); }
+  .quiz-opt.wrong { background: rgba(220,53,69,0.1); border-color: #ff6b7a; color: #ff6b7a; }
+  .quiz-feedback {
+    font-size: 0.9rem; color: var(--text2); min-height: 1.5rem;
+    margin-bottom: 1rem; line-height: 1.6;
+  }
+  .quiz-next {
+    background: rgba(126,207,110,0.12); border: 1px solid var(--border);
+    color: var(--accent); font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.8rem 2rem; border-radius: 2rem;
+    cursor: pointer; transition: all 0.25s;
+    display: none;
+  }
+  .quiz-next:hover { background: rgba(126,207,110,0.2); }
+  .quiz-progress {
+    display: flex; gap: 0.4rem; justify-content: center;
+    margin-bottom: 2rem;
+  }
+  .qp-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--bg3); border: 1px solid var(--border);
+    transition: background 0.3s;
+  }
+  .qp-dot.done { background: var(--accent2); }
+  .qp-dot.current { background: var(--accent); }
+
+  /* ─── CTA FOOTER ─── */
+  .cta-section {
+    padding: 7rem 3rem; text-align: center; max-width: 800px; margin: 0 auto;
+  }
+  .cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900; line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .cta-section p { color: var(--text2); font-size: 1rem; line-height: 1.8; margin-bottom: 2.5rem; }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent2); color: var(--bg);
+    font-family: 'DM Sans', sans-serif; font-weight: 600;
+    font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none;
+    padding: 1rem 2.5rem; border-radius: 3rem;
+    transition: background 0.3s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+  .btn-sec {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--text2);
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none;
+    padding: 1rem 2.5rem; border-radius: 3rem;
+    transition: border-color 0.3s, color 0.3s;
+    display: inline-block;
+  }
+  .btn-sec:hover { border-color: var(--accent2); color: var(--accent); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex; align-items: center; justify-content: space-between;
+    color: var(--text3); font-size: 0.78rem;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(25px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .hero-illustration { display: none; }
+    .anatomy-inner { grid-template-columns: 1fr; }
+    .threats-grid { grid-template-columns: 1fr; }
+    .behavior-cards { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .gallery-item:first-child { grid-row: auto; }
+    .quiz-options { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Pango<span>lines</span></div>
+  <ul class="nav-links">
+    <li><a href="#species">Especies</a></li>
+    <li><a href="#anatomia">Anatomía</a></li>
+    <li><a href="#comportamiento">Comportamiento</a></li>
+    <li><a href="#amenazas">Amenazas</a></li>
+    <li><a href="#conservacion">Conservación</a></li>
+    <li><a href="#quiz">Quiz</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="scales-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">El mamífero más traficado del mundo</div>
+    <h1>El Misterioso<em>Pangolín</em></h1>
+    <p class="hero-desc">
+      Blindados con escamas únicas de queratina, los pangolines son criaturas nocturnas fascinantes que han caminado la Tierra durante más de 80 millones de años — y hoy se encuentran al borde de la extinción.
+    </p>
+    <div class="hero-stats">
+      <div class="stat-pill">
+        <span class="num">8</span>
+        <span class="lbl">Especies</span>
+      </div>
+      <div class="stat-pill">
+        <span class="num">1M+</span>
+        <span class="lbl">Traficados / década</span>
+      </div>
+      <div class="stat-pill">
+        <span class="num">70M</span>
+        <span class="lbl">Hormigas / año</span>
+      </div>
+      <div class="stat-pill">
+        <span class="num">80M</span>
+        <span class="lbl">Años de evolución</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SVG Pangolin Illustration -->
+  <div class="hero-illustration">
+    <svg viewBox="0 0 500 420" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="glowG" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#7ecf6e" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="#7ecf6e" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <ellipse cx="250" cy="300" rx="200" ry="30" fill="url(#glowG)"/>
+      <!-- Body -->
+      <ellipse cx="230" cy="230" rx="155" ry="85" fill="#1e3a1a"/>
+      <!-- Scales on body - rows -->
+      <!-- Row 1 -->
+      <ellipse cx="130" cy="200" rx="30" ry="20" fill="#2d5228" stroke="#3d6b3a" stroke-width="1"/>
+      <ellipse cx="175" cy="190" rx="30" ry="20" fill="#2d5228" stroke="#3d6b3a" stroke-width="1"/>
+      <ellipse cx="220" cy="183" rx="30" ry="20" fill="#3d6b3a" stroke="#4a8040" stroke-width="1"/>
+      <ellipse cx="265" cy="180" rx="30" ry="20" fill="#2d5228" stroke="#3d6b3a" stroke-width="1"/>
+      <ellipse cx="310" cy="185" rx="28" ry="19" fill="#2d5228" stroke="#3d6b3a" stroke-width="1"/>
+      <!-- Row 2 -->
+      <ellipse cx="108" cy="222" rx="28" ry="18" fill="#3d6b3a" stroke="#4a8040" stroke-width="1"/>
+      <ellipse cx="152" cy="212" rx="30" ry="19" fill="#2d5228" stroke="#3d6b3a" stroke-width="1"/>
+      <ellipse cx="196" cy="205" rx="30" ry="19" fill="#3d6b3a" stroke="#4a8040" stroke-width="1"/>
+      <ellipse cx="240" cy="201" rx="30" ry="19" fill="#2d5228" stroke="#3d6b3a" stroke-width="1"/>
+      <ellipse cx="283" cy="202" rx="29" ry="18" fill="#3d6b3a" stroke="#4a8040" stroke-width="1"/>
+      <ellipse cx="324" cy="207" rx="26" ry="17" fill="#2d5228" stroke="#3d6b3a" stroke-width="1"/>
+      <!-- Row 3 -->
+      <ellipse cx="115" cy="243" rx="27" ry="17" fill="#2d5228" stroke="#3d6b3a" stroke-width="1"/>
+      <ellipse cx="159" cy="234" rx="28" ry="17" fill="#3d6b3a" stroke="#4a8040" stroke-width="1"/>
+      <ellipse cx="202" cy="228" rx="28" ry="17" fill="#2d5228" stroke="#3d6b3a" stroke-width="1"/>
+      <ellipse cx="245" cy="225" rx="28" ry="17" fill="#3d6b3a" stroke="#4a8040" stroke-width="1"/>
+      <ellipse cx="287" cy="227" rx="27" ry="16" fill="#2d5228" stroke="#3d6b3a" stroke-width="1"/>
+      <ellipse cx="326" cy="232" rx="24" ry="15" fill="#3d6b3a" stroke="#4a8040" stroke-width="1"/>
+      <!-- Row 4 -->
+      <ellipse cx="130" cy="260" rx="25" ry="15" fill="#3d6b3a" stroke="#4a8040" stroke-width="1"/>
+      <ellipse cx="172" cy="252" rx="26" ry="15" fill="#2d5228" stroke="#3d6b3a" stroke-width="1"/>
+      <ellipse cx="214" cy="248" rx="26" ry="15" fill="#3d6b3a" stroke="#4a8040" stroke-width="1"/>
+      <ellipse cx="255" cy="247" rx="25" ry="14" fill="#2d5228" stroke="#3d6b3a" stroke-width="1"/>
+      <ellipse cx="294" cy="250" rx="23" ry="14" fill="#3d6b3a" stroke="#4a8040" stroke-width="1"/>
+      <!-- Tail -->
+      <path d="M 355 230 Q 410 250 430 300 Q 440 330 400 350 Q 370 360 350 330 Q 390 310 380 280 Q 365 260 350 250 Z" fill="#1e3a1a"/>
+      <!-- Tail scales -->
+      <ellipse cx="378" cy="253" rx="20" ry="12" fill="#2d5228" stroke="#3d6b3a" stroke-width="1"/>
+      <ellipse cx="398" cy="270" rx="20" ry="12" fill="#3d6b3a" stroke="#4a8040" stroke-width="1"/>
+      <ellipse cx="410" cy="292" rx="18" ry="11" fill="#2d5228" stroke="#3d6b3a" stroke-width="1"/>
+      <ellipse cx="403" cy="315" rx="16" ry="10" fill="#3d6b3a" stroke="#4a8040" stroke-width="1"/>
+      <ellipse cx="382" cy="336" rx="15" ry="9" fill="#2d5228" stroke="#3d6b3a" stroke-width="1"/>
+      <!-- Head -->
+      <ellipse cx="100" cy="228" rx="55" ry="42" fill="#1e3a1a"/>
+      <ellipse cx="65" cy="235" rx="30" ry="22" fill="#1a3016"/>
+      <!-- Eye -->
+      <circle cx="90" cy="215" r="7" fill="#0d1a0f"/>
+      <circle cx="90" cy="215" r="4" fill="#1a3016"/>
+      <circle cx="88" cy="213" r="2" fill="#7ecf6e" opacity="0.6"/>
+      <!-- Snout / tongue -->
+      <path d="M 45 240 Q 20 245 0 260" stroke="#7ecf6e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="0" cy="261" rx="4" ry="2" fill="#7ecf6e" opacity="0.8"/>
+      <!-- Legs -->
+      <ellipse cx="155" cy="295" rx="18" ry="12" fill="#1e3a1a"/>
+      <ellipse cx="200" cy="300" rx="18" ry="12" fill="#1e3a1a"/>
+      <ellipse cx="265" cy="302" rx="18" ry="12" fill="#1e3a1a"/>
+      <ellipse cx="310" cy="298" rx="18" ry="12" fill="#1e3a1a"/>
+      <!-- Claws -->
+      <path d="M 145 303 Q 136 312 132 318" stroke="#4a8040" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M 155 305 Q 148 315 146 322" stroke="#4a8040" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M 164 303 Q 158 313 157 319" stroke="#4a8040" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="scroll-hint">Descubrir</div>
+</div>
+
+<hr class="divider">
+
+<!-- SPECIES -->
+<section id="species">
+  <div class="section-label reveal">Taxonomía</div>
+  <h2 class="section-title reveal">Las <em>8 Especies</em><br>de Pangolines</h2>
+  <p class="section-lead reveal">Distribuidos entre África y Asia, los pangolines pertenecen al orden Pholidota. Cuatro especies habitan África y cuatro Asia, cada una con adaptaciones únicas a su ecosistema.</p>
+
+  <div class="species-grid">
+    <div class="species-card reveal">
+      <div class="species-icon">🦎</div>
+      <h3>Pangolín Gigante</h3>
+      <div class="sci">Smutsia gigantea</div>
+      <p>El más grande de todos, puede pesar hasta 33 kg. Habita en las selvas tropicales del África occidental y central. Sus escamas pueden representar hasta el 20% de su peso total.</p>
+      <span class="status-badge status-en">En peligro</span>
+    </div>
+    <div class="species-card reveal">
+      <div class="species-icon">🌿</div>
+      <h3>Pangolín de Tierra</h3>
+      <div class="sci">Smutsia temminckii</div>
+      <p>El más ampliamente distribuido en África subsahariana. Es terrestre y nocturno, excava madrigueras profundas para refugiarse durante el día y criar a sus crías.</p>
+      <span class="status-badge status-vu">Vulnerable</span>
+    </div>
+    <div class="species-card reveal">
+      <div class="species-icon">🌳</div>
+      <h3>Pangolín Arborícola</h3>
+      <div class="sci">Phataginus tricuspis</div>
+      <p>Pequeño y ágil, vive en los árboles de las selvas de África central y occidental. Su cola prensil le permite trepar con facilidad y su cola puede soportar su propio peso.</p>
+      <span class="status-badge status-en">En peligro</span>
+    </div>
+    <div class="species-card reveal">
+      <div class="species-icon">🐲</div>
+      <h3>Pangolín Chino</h3>
+      <div class="sci">Manis pentadactyla</div>
+      <p>Nativo del sur de China y el Himalaya. Es una de las especies más en peligro crítico debido a la alta demanda en la medicina tradicional china y el comercio ilegal.</p>
+      <span class="status-badge status-cr">Peligro crítico</span>
+    </div>
+    <div class="species-card reveal">
+      <div class="species-icon">🏝️</div>
+      <h3>Pangolín de Filipinas</h3>
+      <div class="sci">Manis culionensis</div>
+      <p>Endémico de las islas Filipinas, especialmente Palawan. Es terrestre y nocturno. Su tamaño es mediano y está considerado en peligro crítico por la deforestación y caza.</p>
+      <span class="status-badge status-cr">Peligro crítico</span>
+    </div>
+    <div class="species-card reveal">
+      <div class="species-icon">🌾</div>
+      <h3>Pangolín de la India</h3>
+      <div class="sci">Manis crassicaudata</div>
+      <p>Distribuido por el subcontinente indio. Es el más grande de los pangolines asiáticos y puede excavar madrigueras de hasta 6 metros de profundidad. Especie en peligro.</p>
+      <span class="status-badge status-en">En peligro</span>
+    </div>
+    <div class="species-card reveal">
+      <div class="species-icon">🌴</div>
+      <h3>Pangolín de Malasia</h3>
+      <div class="sci">Manis javanica</div>
+      <p>Habita en el sudeste asiático. Puede ser terrestre o arborícola. Es una de las especies más traficadas del mundo y se considera en peligro crítico de extinción.</p>
+      <span class="status-badge status-cr">Peligro crítico</span>
+    </div>
+    <div class="species-card reveal">
+      <div class="species-icon">🦴</div>
+      <h3>Pangolín de Cola Larga</h3>
+      <div class="sci">Phataginus tetradactyla</div>
+      <p>El más arborícola de todos los pangolines africanos. Tiene la cola más larga en proporción a su cuerpo, usada para aferrarse a las ramas. Especie vulnerable.</p>
+      <span class="status-badge status-vu">Vulnerable</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ANATOMY -->
+<div class="anatomy-section" id="anatomia">
+  <div class="anatomy-inner">
+    <div class="anatomy-vis reveal">
+      <svg viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg" id="anatomy-svg">
+        <defs>
+          <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#7ecf6e" stop-opacity="0.08"/>
+            <stop offset="100%" stop-color="#7ecf6e" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="200" cy="280" rx="170" ry="22" fill="url(#glow2)"/>
+        <!-- Body base -->
+        <ellipse cx="195" cy="200" rx="130" ry="75" fill="#1e3a1a"/>
+        <!-- Highlight areas - interactive zones -->
+        <ellipse id="zone-scales" cx="195" cy="200" rx="130" ry="75" fill="transparent" stroke="transparent" stroke-width="2" style="cursor:pointer"/>
+        <!-- Scales -->
+        <ellipse cx="110" cy="175" rx="26" ry="17" fill="#2d5228" stroke="#3d6b3a" stroke-width="1.2"/>
+        <ellipse cx="148" cy="166" rx="26" ry="17" fill="#3d6b3a" stroke="#4a8040" stroke-width="1.2"/>
+        <ellipse cx="187" cy="160" rx="26" ry="17" fill="#2d5228" stroke="#3d6b3a" stroke-width="1.2"/>
+        <ellipse cx="226" cy="158" rx="26" ry="17" fill="#3d6b3a" stroke="#4a8040" stroke-width="1.2"/>
+        <ellipse cx="264" cy="162" rx="24" ry="16" fill="#2d5228" stroke="#3d6b3a" stroke-width="1.2"/>
+        <ellipse cx="95" cy="197" rx="24" ry="15" fill="#3d6b3a" stroke="#4a8040" stroke-width="1.2"/>
+        <ellipse cx="132" cy="187" rx="25" ry="16" fill="#2d5228" stroke="#3d6b3a" stroke-width="1.2"/>
+        <ellipse cx="170" cy="181" rx="25" ry="16" fill="#3d6b3a" stroke="#4a8040" stroke-width="1.2"/>
+        <ellipse cx="208" cy="178" rx="25" ry="16" fill="#2d5228" stroke="#3d6b3a" stroke-width="1.2"/>
+        <ellipse cx="246" cy="181" rx="24" ry="15" fill="#3d6b3a" stroke="#4a8040" stroke-width="1.2"/>
+        <ellipse cx="281" cy="188" rx="22" ry="14" fill="#2d5228" stroke="#3d6b3a" stroke-width="1.2"/>
+        <ellipse cx="113" cy="217" rx="23" ry="14" fill="#2d5228" stroke="#3d6b3a" stroke-width="1.2"/>
+        <ellipse cx="150" cy="208" rx="23" ry="14" fill="#3d6b3a" stroke="#4a8040" stroke-width="1.2"/>
+        <ellipse cx="187" cy="203" rx="23" ry="14" fill="#2d5228" stroke="#3d6b3a" stroke-width="1.2"/>
+        <ellipse cx="224" cy="201" rx="23" ry="14" fill="#3d6b3a" stroke="#4a8040" stroke-width="1.2"/>
+        <ellipse cx="260" cy="204" rx="21" ry="13" fill="#2d5228" stroke="#3d6b3a" stroke-width="1.2"/>
+        <ellipse cx="293" cy="211" rx="19" ry="12" fill="#3d6b3a" stroke="#4a8040" stroke-width="1.2"/>
+        <!-- Tail -->
+        <path d="M 300 210 Q 345 230 360 270 Q 368 295 345 310 Q 322 318 308 295 Q 335 282 330 258 Q 318 240 305 228 Z" fill="#1e3a1a"/>
+        <ellipse cx="328" cy="235" rx="17" ry="10" fill="#2d5228" stroke="#3d6b3a" stroke-width="1"/>
+        <ellipse cx="343" cy="255" rx="16" ry="10" fill="#3d6b3a" stroke="#4a8040" stroke-width="1"/>
+        <ellipse cx="350" cy="277" rx="14" ry="9" fill="#2d5228" stroke="#3d6b3a" stroke-width="1"/>
+        <ellipse cx="340" cy="298" rx="13" ry="8" fill="#3d6b3a" stroke="#4a8040" stroke-width="1"/>
+        <!-- Head -->
+        <ellipse id="zone-head" cx="87" cy="205" rx="48" ry="37" fill="#1e3a1a" style="cursor:pointer"/>
+        <ellipse cx="56" cy="213" rx="26" ry="19" fill="#1a3016"/>
+        <!-- Eye -->
+        <circle id="zone-eye" cx="78" cy="194" r="6" fill="#0d1a0f" style="cursor:pointer"/>
+        <circle cx="78" cy="194" r="3.5" fill="#1a3016"/>
+        <circle cx="76.5" cy="192.5" r="1.5" fill="#7ecf6e" opacity="0.7"/>
+        <!-- Tongue -->
+        <path id="zone-tongue" d="M 37 220 Q 15 226 -5 238" stroke="#7ecf6e" stroke-width="2.5" fill="none" stroke-linecap="round" style="cursor:pointer"/>
+        <!-- Legs -->
+        <ellipse id="zone-claws" cx="138" cy="260" rx="15" ry="10" fill="#1e3a1a" style="cursor:pointer"/>
+        <ellipse cx="175" cy="265" rx="15" ry="10" fill="#1e3a1a"/>
+        <ellipse cx="228" cy="267" rx="15" ry="10" fill="#1e3a1a"/>
+        <ellipse cx="266" cy="263" rx="15" ry="10" fill="#1e3a1a"/>
+        <!-- Claws -->
+        <path cx="138" cy="260" d="M 128 267 Q 121 275 118 281" stroke="#4a8040" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M 137 269 Q 131 277 130 284" stroke="#4a8040" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M 147 268 Q 142 276 142 283" stroke="#4a8040" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+
+        <!-- Labels with lines -->
+        <line x1="195" y1="175" x2="195" y2="120" stroke="#3d6b3a" stroke-width="0.8" stroke-dasharray="3,3"/>
+        <circle cx="195" cy="120" r="3" fill="#7ecf6e"/>
+        <text x="198" y="117" fill="#7ecf6e" font-size="11" font-family="DM Sans, sans-serif">Escamas de queratina</text>
+
+        <line x1="78" y1="194" x2="30" y2="140" stroke="#3d6b3a" stroke-width="0.8" stroke-dasharray="3,3"/>
+        <circle cx="30" cy="140" r="3" fill="#c9a227"/>
+        <text x="33" y="137" fill="#c9a227" font-size="11" font-family="DM Sans, sans-serif">Ojo pequeño</text>
+
+        <line x1="10" y1="238" x2="-15" y2="270" stroke="#3d6b3a" stroke-width="0.8" stroke-dasharray="3,3"/>
+        <circle cx="-15" cy="270" r="3" fill="#7ecf6e"/>
+        <text x="-13" y="285" fill="#7ecf6e" font-size="11" font-family="DM Sans, sans-serif">Lengua larga</text>
+
+        <line x1="138" y1="272" x2="90" y2="310" stroke="#3d6b3a" stroke-width="0.8" stroke-dasharray="3,3"/>
+        <circle cx="90" cy="310" r="3" fill="#c9a227"/>
+        <text x="93" y="313" fill="#c9a227" font-size="11" font-family="DM Sans, sans-serif">Garras fuertes</text>
+
+        <line x1="340" y1="278" x2="370" y2="310" stroke="#3d6b3a" stroke-width="0.8" stroke-dasharray="3,3"/>
+        <circle cx="370" cy="310" r="3" fill="#7ecf6e"/>
+        <text x="350" y="327" fill="#7ecf6e" font-size="11" font-family="DM Sans, sans-serif">Cola prensil</text>
+      </svg>
+    </div>
+
+    <div class="anatomy-info">
+      <div class="section-label">Morfología</div>
+      <h2 class="section-title">Anatomía<br><em>Extraordinaria</em></h2>
+      <p class="section-lead" style="margin-bottom:1.5rem;">Haz clic en las partes del pangolín para conocer cada estructura en detalle.</p>
+
+      <h3 id="anat-title">Selecciona una parte</h3>
+      <p id="anat-desc" style="color:var(--text2); line-height:1.8; font-size:0.95rem;">Haz clic en cualquier zona de la ilustración del pangolín para aprender sobre esa estructura anatómica específica.</p>
+
+      <div class="anatomy-tabs">
+        <button class="tab-btn" data-part="scales">Escamas</button>
+        <button class="tab-btn" data-part="tongue">Lengua</button>
+        <button class="tab-btn" data-part="claws">Garras</button>
+        <button class="tab-btn" data-part="eyes">Sentidos</button>
+        <button class="tab-btn" data-part="tail">Cola</button>
+        <button class="tab-btn" data-part="defense">Defensa</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FACTS STRIP -->
+<section>
+  <div class="facts-strip reveal">
+    <div class="fact-cell">
+      <div class="icon">📏</div>
+      <span class="val">30–100 cm</span>
+      <span class="desc">Longitud del cuerpo (sin cola)</span>
+    </div>
+    <div class="fact-cell">
+      <div class="icon">⚖️</div>
+      <span class="val">1.8–33 kg</span>
+      <span class="desc">Rango de peso entre especies</span>
+    </div>
+    <div class="fact-cell">
+      <div class="icon">👅</div>
+      <span class="val">40 cm</span>
+      <span class="desc">Longitud de su lengua pegajosa</span>
+    </div>
+    <div class="fact-cell">
+      <div class="icon">🦴</div>
+      <span class="val">20%</span>
+      <span class="desc">Peso corporal representado por escamas</span>
+    </div>
+    <div class="fact-cell">
+      <div class="icon">🌙</div>
+      <span class="val">20 años</span>
+      <span class="desc">Esperanza de vida estimada</span>
+    </div>
+    <div class="fact-cell">
+      <div class="icon">🐜</div>
+      <span class="val">200+</span>
+      <span class="desc">Termiteros y hormigueros visitados por noche</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- GALLERY -->
+<div class="gallery-section" id="galeria">
+  <div class="gallery-inner">
+    <div class="section-label reveal">Fotografías</div>
+    <h2 class="section-title reveal">El Pangolín en su<br><em>Hábitat Natural</em></h2>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <img src="https://images.squarespace-cdn.com/content/v1/657b302ad0d11e71b22b40c3/14fbfd65-bdde-4fb5-8ca7-2bb9089a907e/photo_1320.jpg" alt="Pangolín de Sunda">
+        <div class="gallery-caption">Pangolín de Sunda — Manis javanica</div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://s3.amazonaws.com/mongabay-images/13/0210.pangolin.REST-Maria-Diekmann-02.568.jpg" alt="Pangolín de tierra">
+        <div class="gallery-caption">Pangolín de tierra en África</div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://static.nationalgeographicla.com/files/styles/image_3200/public/13-pangolin-day.webp?w=1190&h=1785" alt="Pangolín bebé">
+        <div class="gallery-caption">Cría sobre el lomo de su madre</div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://s3.animalia.bio/animals/photos/full/original/scaly-anteater.webp">
+        <div class="gallery-caption">Pangolín de Temminck en Tanzania</div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://wildnet.org/wp-content/uploads/Black-bellied-pangolin_Central-African-Republic_Credit-Anita-Mishra.jpg" alt="Pangolín en árbol">
+        <div class="gallery-caption">Pangolín arborícola trepando</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BEHAVIOR -->
+<section id="comportamiento">
+  <div class="section-label reveal">Etología</div>
+  <h2 class="section-title reveal">Comportamiento<br>y <em>Estilo de Vida</em></h2>
+  <p class="section-lead reveal">Solitarios, nocturnos y altamente especializados, los pangolines han desarrollado comportamientos únicos para sobrevivir en sus ecosistemas.</p>
+
+  <div class="behavior-cards">
+    <div class="beh-card reveal">
+      <div class="beh-icon">🌙</div>
+      <h3>Vida Nocturna</h3>
+      <p>Los pangolines son estrictamente nocturnos. Durante el día descansan en madrigueras subterráneas o en las copas de los árboles, y al anochecer salen a buscar alimento de forma solitaria durante varias horas.</p>
+    </div>
+    <div class="beh-card reveal">
+      <div class="beh-icon">🐜</div>
+      <h3>Dieta Mirmecófaga</h3>
+      <p>Se alimentan exclusivamente de hormigas y termitas. Detectan los nidos con su olfato desarrollado, los abren con sus potentes garras y los capturan con su larga lengua pegajosa, que puede extenderse más allá del largo de su cabeza.</p>
+    </div>
+    <div class="beh-card reveal">
+      <div class="beh-icon">🌀</div>
+      <h3>Defensa en Bola</h3>
+      <p>Cuando se sienten amenazados, se enrollan en una bola compacta, cubriendo su vientre vulnerable con sus escamas superpuestas. Esta armadura natural es tan resistente que puede repeler leones y leopardos.</p>
+    </div>
+    <div class="beh-card reveal">
+      <div class="beh-icon">👶</div>
+      <h3>Reproducción Lenta</h3>
+      <p>Las hembras tienen solo una cría por vez, que nace con escamas blandas que se endurecen con los días. La madre lleva a su cría sobre su cola durante los primeros meses de vida, protegiéndola enrollándose sobre ella.</p>
+    </div>
+    <div class="beh-card reveal">
+      <div class="beh-icon">🌿</div>
+      <h3>Rol Ecológico</h3>
+      <p>Son controladores naturales de poblaciones de insectos: un solo pangolín puede consumir más de 70 millones de hormigas y termitas al año. Al excavar madrigueras también airean el suelo, favoreciendo la biodiversidad del ecosistema.</p>
+    </div>
+    <div class="beh-card reveal">
+      <div class="beh-icon">🗺️</div>
+      <h3>Territorialidad</h3>
+      <p>Marcan su territorio con orina, heces y secreciones de glándulas anales. Los machos tienen territorios más amplios que se superponen con los de varias hembras. Se comunican principalmente mediante señales químicas (feromonas).</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- THREATS -->
+<section id="amenazas">
+  <div class="section-label reveal">Crisis de conservación</div>
+  <h2 class="section-title reveal">Amenazas que<br>Enfrentan los <em>Pangolines</em></h2>
+  <p class="section-lead reveal">Los pangolines son los mamíferos más traficados del mundo. Una combinación de factores antropogénicos los empuja rápidamente hacia la extinción.</p>
+
+  <div class="threats-grid">
+    <div class="threat-card reveal">
+      <span class="threat-num">01</span>
+      <h3>Tráfico Ilegal</h3>
+      <p>Se estima que entre 2000 y 2019 más de un millón de pangolines fueron capturados ilegalmente. Sus escamas se utilizan en la medicina tradicional asiática, aunque no tienen propiedades medicinales comprobadas. Su carne también es considerada un manjar en ciertos mercados.</p>
+      <div class="progress-bar"><div class="progress-fill" data-width="92"></div></div>
+    </div>
+    <div class="threat-card reveal">
+      <span class="threat-num">02</span>
+      <h3>Pérdida de Hábitat</h3>
+      <p>La deforestación masiva en Asia y África destruye los ecosistemas que necesitan para sobrevivir. La expansión agrícola, la minería y el desarrollo urbano fragmentan su hábitat, aislando poblaciones y reduciendo su acceso a alimento.</p>
+      <div class="progress-bar"><div class="progress-fill" data-width="78"></div></div>
+    </div>
+    <div class="threat-card reveal">
+      <span class="threat-num">03</span>
+      <h3>Baja Tasa Reproductiva</h3>
+      <p>Su reproducción extremadamente lenta (una cría por año) hace que las poblaciones se recuperen muy lentamente. A diferencia de otras especies, los pangolines no pueden compensar las pérdidas causadas por el ser humano con mayor natalidad.</p>
+      <div class="progress-bar"><div class="progress-fill" data-width="65"></div></div>
+    </div>
+    <div class="threat-card reveal">
+      <span class="threat-num">04</span>
+      <h3>Comercio en Mercados Húmedos</h3>
+      <p>La venta de pangolines vivos en mercados de animales salvajes no solo impulsa su extinción, sino que también representa un riesgo sanitario: son portadores de coronavirus similares al SARS. Se cree que podrían haber actuado como huéspedes intermediarios en pandemias.</p>
+      <div class="progress-bar"><div class="progress-fill" data-width="70"></div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONSERVATION TIMELINE -->
+<section id="conservacion">
+  <div class="section-label reveal">Historia de la conservación</div>
+  <h2 class="section-title reveal">Hitos en la<br><em>Protección</em> del Pangolín</h2>
+  <p class="section-lead reveal">La comunidad internacional ha ido aumentando gradualmente los esfuerzos para proteger a estos animales, aunque queda mucho por hacer.</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="year">2000</div>
+      <h4>Primera Alerta de la UICN</h4>
+      <p>La Unión Internacional para la Conservación de la Naturaleza incluye a los pangolines asiáticos en su Lista Roja con estatus de amenaza, llamando la atención global sobre su difícil situación.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="year">2013</div>
+      <h4>Inclusión en CITES Apéndice II</h4>
+      <p>La Convención sobre el Comercio Internacional de Especies Amenazadas lista a los cuatro pangolines asiáticos, limitando formalmente su comercio internacional aunque sin prohibirlo completamente.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="year">2016</div>
+      <h4>Prohibición Total del Comercio</h4>
+      <p>En la Conferencia de CITES en Johannesburgo, las 183 naciones miembro votan por unanimidad mover a las 8 especies al Apéndice I, prohibiendo completamente su comercio internacional.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="year">2018</div>
+      <h4>China Prohíbe su Comercio</h4>
+      <p>China, el mayor mercado de productos de pangolín, anuncia restricciones significativas al uso de sus escamas en la medicina tradicional, aunque la implementación sigue siendo desigual.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="year">2020</div>
+      <h4>Vínculo con COVID-19</h4>
+      <p>Investigadores identifican que los pangolines podrían haber sido huéspedes intermediarios del SARS-CoV-2. Esto impulsa nuevas medidas globales para cerrar mercados de animales salvajes.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="year">2021–Hoy</div>
+      <h4>Programas de Reproducción en Cautividad</h4>
+      <p>Varios zoológicos y centros de rescate desarrollan protocolos para criar pangolines en cautividad, aunque sigue siendo extremadamente difícil. La colaboración internacional es clave para su futuro.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- QUIZ -->
+<div class="quiz-section" id="quiz">
+  <div class="quiz-inner">
+    <div class="section-label">Pon a prueba tu conocimiento</div>
+    <h2 class="section-title" style="text-align:center; margin-bottom:2rem;">Quiz del <em>Pangolín</em></h2>
+
+    <div class="quiz-progress" id="quiz-progress"></div>
+    <p class="quiz-q" id="quiz-question">Cargando pregunta...</p>
+    <div class="quiz-options" id="quiz-options"></div>
+    <p class="quiz-feedback" id="quiz-feedback"></p>
+    <button class="quiz-next" id="quiz-next">Siguiente pregunta →</button>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section reveal">
+  <h2>Cada pangolín<br>cuenta. <em>Actúa</em> hoy.</h2>
+  <p>Los pangolines necesitan nuestra voz. Apoya las organizaciones que trabajan para protegerlos, rechaza productos de origen ilegal y comparte su historia. La extinción es para siempre.</p>
+  <div class="cta-btns">
+    <a href="https://www.savepangolins.org" target="_blank" class="btn-primary">Apoya Save Pangolins</a>
+    <a href="https://www.iucnredlist.org/search?query=pangolin" target="_blank" class="btn-sec">Ver Lista Roja UICN</a>
+  </div>
+</div>
+
+<footer>
+  <span>Pangolines — Educación y Conservación</span>
+  <span>Datos: UICN, CITES, TRAFFIC, Save Pangolins · 2024</span>
+</footer>
+
+<script>
+// ─── ANATOMY INTERACTIONS ───
+const anatData = {
+  scales: {
+    title: "Escamas de Queratina",
+    desc: "Las escamas del pangolín están compuestas de queratina endurecida, el mismo material que forma las uñas y el cabello humano. Son la única forma de escamas en mamíferos y pueden representar hasta el 20% del peso total del animal. Están dispuestas como tejas de un techo, superponiéndose para maximizar la protección. Son lo suficientemente fuertes como para resistir los dientes de un leopardo."
+  },
+  tongue: {
+    title: "La Lengua Más Sorprendente",
+    desc: "La lengua del pangolín puede ser más larga que todo su cuerpo, alcanzando hasta 40 cm en las especies grandes. Está cubierta de una mucosidad pegajosa que atrapa insectos. Notablemente, no tiene dientes: tritura los insectos con piedras en un estómago muscular especializado, similar a una molleja. La lengua se origina en la cavidad torácica, no en la boca."
+  },
+  claws: {
+    title: "Garras Excavadoras",
+    desc: "Sus tres garras centrales son extremadamente largas y fuertes, ideales para desgarrar hormigueros y termiteros de madera dura. También las usan para trepar árboles. Al caminar, doblan las garras hacia adentro para no desgastarlas, apoyándose en los nudillos, de forma similar a los gorilas. Una sola zarpa puede derribar corteza que resiste meses de intemperie."
+  },
+  eyes: {
+    title: "Sentidos Adaptados a la Noche",
+    desc: "Los pangolines tienen ojos pequeños con párpados gruesos que los protegen de las picaduras de insectos. Su visión es limitada, pero compensan con un olfato extraordinariamente desarrollado. Poseen glándulas olfativas en el hocico que detectan nidos de insectos bajo tierra. Sus oídos, aunque externos, no son prominentes; perciben vibraciones del suelo con gran sensibilidad."
+  },
+  tail: {
+    title: "La Cola Multifuncional",
+    desc: "La cola del pangolín puede ser prehensil en las especies arborícolas, permitiéndoles colgarse de ramas. En tierra, actúa como contrapeso al caminar en dos patas. Durante la postura defensiva en bola, la cola cubre el vientre junto con las escamas laterales. Algunas especies como el pangolín de cola larga tienen una cola que puede ser más larga que su cuerpo."
+  },
+  defense: {
+    title: "Defensa: La Bola Perfecta",
+    desc: "Cuando un pangolín se siente amenazado, se enrolla en una bola casi perfecta en décimas de segundo, protegiendo su vientre blando con las escamas. Incluso puede apretar la bola activamente con sus músculos si un depredador intenta abrirla. Adicionalmente, segregan un fluido maloliente de glándulas anales similar al del zorrillo. Esta combinación los hace prácticamente invulnerables a depredadores naturales."
+  }
+};
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const part = btn.dataset.part;
+    const data = anatData[part];
+    if (!data) return;
+    document.getElementById('anat-title').textContent = data.title;
+    document.getElementById('anat-desc').textContent = data.desc;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// ─── QUIZ ───
+const quizData = [
+  {
+    q: "¿Cuántas especies de pangolines existen en el mundo?",
+    opts: ["4 especies", "6 especies", "8 especies", "12 especies"],
+    correct: 2,
+    feedback: "¡Correcto! Existen 8 especies: 4 en África y 4 en Asia, todas amenazadas."
+  },
+  {
+    q: "¿De qué material están hechas las escamas del pangolín?",
+    opts: ["Hueso", "Queratina", "Quitina", "Cartílago"],
+    correct: 1,
+    feedback: "¡Exacto! Las escamas están hechas de queratina, el mismo material que nuestras uñas."
+  },
+  {
+    q: "¿Cuántos insectos puede consumir un pangolín en un año?",
+    opts: ["10 millones", "35 millones", "70 millones", "200 millones"],
+    correct: 2,
+    feedback: "¡Correcto! Un pangolín puede consumir más de 70 millones de hormigas y termitas al año."
+  },
+  {
+    q: "¿Por qué el pangolín se enrolla en forma de bola?",
+    opts: ["Para dormir cómodamente", "Para regular su temperatura", "Como mecanismo de defensa", "Para cazar insectos"],
+    correct: 2,
+    feedback: "¡Muy bien! Es su principal mecanismo de defensa, protegiendo su vientre vulnerable con las escamas."
+  },
+  {
+    q: "¿En qué año se prohibió completamente el comercio internacional de todas las especies de pangolín?",
+    opts: ["2000", "2010", "2013", "2016"],
+    correct: 3,
+    feedback: "En 2016, la conferencia de CITES en Johannesburgo votó por unanimidad mover las 8 especies al Apéndice I."
+  },
+  {
+    q: "¿Dónde se origina la lengua del pangolín?",
+    opts: ["En la base de la mandíbula", "En la garganta", "En la cavidad torácica", "Detrás del esternón"],
+    correct: 2,
+    feedback: "¡Asombroso pero cierto! La lengua del pangolín se origina en la cavidad torácica, por eso puede ser tan increíblemente larga."
+  }
+];
+
+let currentQ = 0, score = 0, answered = false;
+
+function renderQuiz() {
+  const q = quizData[currentQ];
+  document.getElementById('quiz-question').textContent = q.q;
+  document.getElementById('quiz-feedback').textContent = '';
+  document.getElementById('quiz-next').style.display = 'none';
+  answered = false;
+
+  const optsCont = document.getElementById('quiz-options');
+  optsCont.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = opt;
+    btn.addEventListener('click', () => {
+      if (answered) return;
+      answered = true;
+      const isCorrect = i === q.correct;
+      if (isCorrect) { score++; btn.classList.add('correct'); }
+      else {
+        btn.classList.add('wrong');
+        optsCont.querySelectorAll('.quiz-opt')[q.correct].classList.add('correct');
+      }
+      document.getElementById('quiz-feedback').textContent = isCorrect ? '✓ ' + q.feedback : '✗ ' + q.feedback;
+      document.getElementById('quiz-next').style.display = currentQ < quizData.length - 1 ? 'inline-block' : 'none';
+      if (currentQ === quizData.length - 1) {
+        setTimeout(() => {
+          document.getElementById('quiz-feedback').textContent =
+            `Completaste el quiz: ${score + (isCorrect ? 1 : 0)} de ${quizData.length} correctas. ¡${score >= 4 ? 'Eres un experto en pangolines!' : 'Sigue aprendiendo sobre estos increíbles animales!'}`;
+        }, 100);
+      }
+    });
+    optsCont.appendChild(btn);
+  });
+
+  const prog = document.getElementById('quiz-progress');
+  prog.innerHTML = '';
+  quizData.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'qp-dot' + (i < currentQ ? ' done' : i === currentQ ? ' current' : '');
+    prog.appendChild(dot);
+  });
+}
+
+document.getElementById('quiz-next').addEventListener('click', () => {
+  currentQ++;
+  if (currentQ < quizData.length) renderQuiz();
+});
+
+renderQuiz();
+
+// ─── INTERSECTION OBSERVER for animations ───
+const revealEls = document.querySelectorAll('.reveal, .timeline-item');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      // progress bars
+      const bar = e.target.querySelector('.progress-fill');
+      if (bar) {
+        setTimeout(() => {
+          bar.style.width = bar.dataset.width + '%';
+        }, 300);
+      }
+    }
+  });
+}, { threshold: 0.12 });
+
+revealEls.forEach(el => observer.observe(el));
+
+// Stagger reveals
+document.querySelectorAll('.species-card, .beh-card').forEach((el, i) => {
+  el.style.transitionDelay = (i * 0.07) + 's';
+});
+</script>
+</body>
+</html>
