@@ -1,0 +1,242 @@
+/* estilos generales para AnimalesWEB12 */
+:root {
+    --fondo: #f0f8ff;
+    --texto: #1f2937;
+    --accento: #107896;
+    --acento-claro: #38bdf8;
+    --blanco: #ffffff;
+    --sombra: 0 18px 40px rgba(16, 120, 150, 0.12);
+    --radio: 18px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--texto);
+    background: radial-gradient(circle at top left, #e7f6ff 0%, var(--fondo) 45%);
+}
+
+body {
+    min-height: 100vh;
+    line-height: 1.7;
+}
+
+body.tortuga-page {
+    background: linear-gradient(rgba(240, 248, 255, 0.28), rgba(240, 248, 255, 0.28)), url("img/un-grupo-de-tortugas-nadando-en-el-agua-bajo-cielo-azul-ai-generado-308179184.webp");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+nav {
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid rgba(16, 120, 150, 0.14);
+    box-shadow: var(--sombra);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+nav ul {
+    margin: 0;
+    padding: 12px 24px;
+    display: flex;
+    gap: 16px;
+    list-style: none;
+    align-items: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--texto);
+    font-weight: 600;
+}
+
+nav a:hover,
+nav a:focus-visible {
+    color: var(--accento);
+}
+
+.container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.hero {
+    background: linear-gradient(180deg, rgba(230, 255, 235, 0.95), rgba(235, 255, 240, 0.95));
+    border-radius: var(--radio);
+    padding: 32px;
+    box-shadow: var(--sombra);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.hero-text {
+    flex: 1 1 320px;
+    min-width: 220px;
+}
+
+.hero h1 {
+    margin-top: 0;
+    color: #0f4c81;
+}
+
+.hero-figure {
+    margin: 0;
+    flex: 0 0 170px;
+    text-align: center;
+}
+
+.hero-figure img {
+    width: 170px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 18px;
+    box-shadow: var(--sombra);
+}
+
+.hero-figure figcaption {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #475569;
+}
+
+.card {
+    background: rgba(237, 252, 239, 0.95);
+    border-radius: 22px;
+    box-shadow: var(--sombra);
+    padding: 26px;
+    margin-bottom: 24px;
+}
+
+.card h2 {
+    margin-top: 0;
+    color: #134e5c;
+}
+
+.card p {
+    margin: 1rem 0;
+}
+
+.card figure {
+    margin: 1.5rem 0 0;
+}
+
+.section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.section-header h2 {
+    margin: 0;
+    flex: 1 1 240px;
+}
+
+.section-header figure {
+    margin: 0;
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    border-radius: 14px;
+    background: rgba(16, 120, 150, 0.06);
+    padding: 8px;
+    transition: background 0.2s ease;
+}
+
+.section-header figure:hover,
+.section-header figure:focus-within,
+.section-header figure:active {
+    background: rgba(16, 120, 150, 0.12);
+}
+
+.section-header img {
+    width: 100px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 14px;
+    flex-shrink: 0;
+}
+
+.section-header figcaption {
+    display: none;
+    margin: 0;
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.3;
+    max-width: 160px;
+}
+
+.section-header figure.show-caption figcaption {
+    display: block;
+}
+
+.section-header figure.show-caption img {
+    opacity: 0.6;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+    box-shadow: var(--sombra);
+    display: block;
+}
+
+.card figcaption {
+    margin-top: 0.75rem;
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+.feature-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+}
+
+.feature {
+    background: #b7dfc6;
+    border: 1px solid rgba(16, 120, 150, 0.24);
+    border-radius: 16px;
+    padding: 18px;
+}
+
+.feature strong {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--accento);
+}
+
+footer {
+    text-align: center;
+    color: #475569;
+    padding: 18px 24px;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 640px) {
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .container {
+        padding: 18px;
+    }
+}
