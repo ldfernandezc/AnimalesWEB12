@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Las gatas más tiernas y lindas</title>
+    <style>
+        :root{--bg:#ffe4f0;--card:#ffffff;--primary:#b23d74;--accent:#ffd1e4;--text:#4b2140;--muted:#7d3d64}
+        *{box-sizing:border-box}
+        body{margin:0;font-family:"Times New Roman", Times, serif;background:linear-gradient(180deg,#ffe9f4 0%,#fff 100%);color:var(--text);position:relative;overflow-x:hidden}
+        body::before{content:'🐾';position:absolute;top:20%;left:15%;transform:translate(-50%,-50%);font-size:20rem;opacity:.05;z-index:0;pointer-events:none;}
+        body::after{content:'🐾';position:absolute;top:70%;right:12%;transform:translate(50%,-50%);font-size:22rem;opacity:.05;z-index:0;pointer-events:none;}
+        .paw-bg{position:absolute;content:'🐾';font-size:18rem;opacity:.05;z-index:0;pointer-events:none}
+        .paw-bg.paw1{top:10%;right:20%;transform:translate(50%, -50%)}
+        .paw-bg.paw2{bottom:18%;left:18%;transform:translate(-50%, 50%)}
+        .paw-bg.paw3{top:60%;left:60%;transform:translate(-50%, -50%)}
+        .paw-bg.paw4{top:25%;left:10%;transform:translate(-50%, -50%);font-size:19rem;opacity:.04}
+        .paw-bg.paw5{bottom:25%;right:20%;transform:translate(50%, 50%);font-size:17rem;opacity:.04}
+        .paw-bg.paw6{top:45%;right:10%;transform:translate(50%, -50%);font-size:16.5rem;opacity:.03}
+        body > *{position:relative;z-index:1}
+        .decor{position:absolute;inset:0;pointer-events:none;z-index:2}
+        .decor span{position:absolute;display:flex;align-items:center;justify-content:center;width:54px;height:54px;font-size:2rem;border-radius:50%;background:rgba(255,255,255,.92);color:#b23d74;box-shadow:0 12px 24px rgba(178,61,116,.18);border:1px solid rgba(255,255,255,.95)}
+        .decor span:nth-child(1){top:20px;left:22px}
+        .decor span:nth-child(2){top:20px;right:22px}
+        .decor span:nth-child(3){top:55px;right:60px}
+        .decor span:nth-child(4){bottom:20px;left:22px}
+        .decor span:nth-child(5){bottom:20px;right:22px}
+        .decor span:nth-child(6){bottom:55px;left:60px}
+        header{padding:32px 24px;text-align:center;background:radial-gradient(circle at top,#ffd8e8 0%,#ffe9f4 45%,#fff 100%);border-bottom:1px solid #ffd5e4}
+        header h1{margin:.2rem;font-size:clamp(2.25rem,4vw,3.6rem);letter-spacing:.04em}
+        header p{max-width:760px;margin:.75rem auto 0;font-size:1.05rem;line-height:1.75;color:#5c3350}
+        nav{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;padding:18px 0;background:#ffe2ec}
+        nav a{color:var(--primary);font-weight:700;text-decoration:none;padding:10px 18px;border-radius:999px;transition:.25s}
+        nav a:hover{background:#ffd8e4}
+        main{max-width:1180px;margin:0 auto;padding:24px}
+        .section-card{background:var(--card);border:1px solid #ffcde1;border-radius:28px;padding:28px;box-shadow:0 20px 45px rgba(177,61,102,.12);margin-bottom:24px}
+        .section-card h2{margin-top:0;color:var(--primary)}
+        .section-card p{line-height:1.75;color:#5a3050}
+        .kitty-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+        .kitty-card{position:relative;overflow:hidden;border-radius:28px;cursor:pointer;background:#fff;transition:transform .25s,box-shadow .25s}
+        .kitty-card:hover{transform:translateY(-6px);box-shadow:0 22px 44px rgba(132,41,85,.16)}
+        .kitty-card img{width:100%;display:block;height:280px;object-fit:cover}
+        .kitty-card .overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 38%,rgba(255,210,226,.96) 100%);display:flex;align-items:flex-end;padding:22px;opacity:0;transition:opacity .3s}
+        .kitty-card:hover .overlay{opacity:1}
+        .kitty-card .overlay h3{margin:0;color:#3f1c33;font-size:1.45rem}
+        .kitty-card .overlay p{margin:.4rem 0 0;color:#5b2e4f;font-size:.98rem;line-height:1.4}
+        .kitty-detail{background:linear-gradient(180deg,#fff3f8 0%,#ffe3ee 100%);border:1px solid #ffbfd3;border-radius:28px;padding:28px;box-shadow:0 14px 34px rgba(168,55,99,.12)}
+        .kitty-detail h2{margin-top:0;color:var(--primary)}
+        .kitty-detail p{margin:.75rem 0;color:#5a3750;line-height:1.75}
+        .detail-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:18px}
+        .detail-card{background:#fff;border:1px solid #ffd7e3;border-radius:22px;padding:18px}
+        .detail-card strong{display:block;margin-bottom:.55rem;color:#7a2f59}
+        footer{padding:18px 24px;text-align:center;color:#7a4a6a;font-size:.95rem}
+        @media (max-width:640px){header{padding:24px 16px} .kitty-card img{height:240px}}
+    </style>
+</head>
+<body>
+    <div class="paw-bg paw1">🐾</div>
+    <div class="paw-bg paw2">🐾</div>
+    <div class="paw-bg paw3">🐾</div>
+    <div class="paw-bg paw4">🐾</div>
+    <div class="paw-bg paw5">🐾</div>
+    <div class="paw-bg paw6">🐾</div>
+    <div class="decor">
+        <span>🐾</span>
+        <span>❤️</span>
+        <span>🐾</span>
+        <span>❤️</span>
+        <span>🐾</span>
+        <span>❤️</span>
+    </div>
+    <header>
+        <h1>Las gatas más tiernas y lindas del mundo</h1>
+        <p>Descubre cómo cuidarlas, el cariño que necesitan y conoce a tres gatitas especiales con sus comidas favoritas, juguetes ideales y actividades que aman.</p>
+    </header>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="gata.html">Gatas Tiernas</a>
+        <a href="iguana.html">Iguanas</a>
+        <a href="contacto.html">Contacto</a>
+    </nav>
+    <main>
+        <section class="section-card">
+            <h2>Cómo cuidarlas con amor</h2>
+            <p>Las gatas necesitan una dieta balanceada, agua fresca siempre disponible, un espacio limpio para su caja, y mucho cariño. Acarícialas suavemente, juega con ellas diariamente y respeta sus ritmos cuando quieren descansar.</p>
+        </section>
+        <section class="section-card">
+            <h2>El cariño que merecen</h2>
+            <p>Una gata feliz recibe atención, seguridad y rutinas suaves. Habla con ella, cepíllala con delicadeza, ofrece un rincón acogedor y deja que se acerque cuando quiera abrazos. El amor se gana con confianza, paciencia y respeto.</p>
+        </section>
+        <section class="section-card kitty-grid">
+            <article class="kitty-card" data-name="Luna" data-food="Croquetas suaves, pate de pollo y pescado blanco como premio." data-toys="Plumas, pelotas de tela y ratones suaves para cazar." data-activities="Le encanta tomar el sol en la ventana, dormir en su cama y acurrucarse junto a ti.">
+                <img src="https://images.pexels.com/photos/617278/pexels-photo-617278.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Gata blanca Luna descansando al sol">
+                <div class="overlay">
+                    <div>
+                        <h3>Luna</h3>
+                        <p>Una gatita dulce y sosegada que ama el calor del sol.</p>
+                    </div>
+                </div>
+            </article>
+            <article class="kitty-card" data-name="Mimi" data-food="Comida húmeda de alta calidad, pequeñas porciones de pollo y snacks de atún." data-toys="Cajas, juegos de perseguir bolitas y varitas con plumas." data-activities="Disfruta jugar por la tarde, saltar entre cojines y recibir caricias en la cabeza.">
+                <img src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Gata blanca Mimi con ojos grandes">
+                <div class="overlay">
+                    <div>
+                        <h3>Mimi</h3>
+                        <p>Una gatita curiosa que siempre busca aventuras suaves.</p>
+                    </div>
+                </div>
+            </article>
+            <article class="kitty-card" data-name="Nube" data-food="Pescado ligero, croquetas para gatos delicados y golosinas de pollo." data-toys="Peluches con catnip, túneles y juguetes con sonido." data-activities="Le encanta explorar su casa, acurrucarse en mantas y recibir mimos tranquilos.">
+                <img src="https://images.pexels.com/photos/326875/pexels-photo-326875.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Gata blanca Nube con mirada tierna">
+                <div class="overlay">
+                    <div>
+                        <h3>Nube</h3>
+                        <p>Una gatita suave y cariñosa que adora estar cerca de ti.</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+        <section class="section-card kitty-detail" id="kittyDetail">
+            <h2>Acerca de la gatita</h2>
+            <p>Pasa el cursor sobre la imagen de una gatita y descubre lo que le gusta comer, sus juguetes favoritos y cómo le encanta pasar su día.</p>
+            <div class="detail-list">
+                <div class="detail-card"><strong>Nombre</strong><span id="detailName">Pasa el cursor sobre una gatita</span></div>
+                <div class="detail-card"><strong>Comidas favoritas</strong><span id="detailFood">Croquetas suaves, comida húmeda y mucho amor en cada plato.</span></div>
+                <div class="detail-card"><strong>Juguetes preferidos</strong><span id="detailToys">Plumas, ratones, cajas y pelotas suaves.</span></div>
+                <div class="detail-card"><strong>Lo que le gusta hacer</strong><span id="detailActivities">Dormir al sol, jugar contigo y recibir caricias suaves.</span></div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>Proyecto principal integrado: una página rosa palo dedicada a las gatas más lindas, con cuidados y mucho cariño.</p>
+    </footer>
+    <script>
+        const cards = document.querySelectorAll('.kitty-card');
+        const detailName = document.getElementById('detailName');
+        const detailFood = document.getElementById('detailFood');
+        const detailToys = document.getElementById('detailToys');
+        const detailActivities = document.getElementById('detailActivities');
+        const initial = {
+            name:'Pasa el cursor sobre una gatita',
+            food:'Croquetas suaves, comida húmeda y mucho amor en cada plato.',
+            toys:'Plumas, ratones, cajas y pelotas suaves.',
+            activities:'Dormir al sol, jugar contigo y recibir caricias suaves.'
+        };
+        function update(details){
+            detailName.textContent = details.name;
+            detailFood.textContent = details.food;
+            detailToys.textContent = details.toys;
+            detailActivities.textContent = details.activities;
+        }
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                update({
+                    name: card.dataset.name,
+                    food: card.dataset.food,
+                    toys: card.dataset.toys,
+                    activities: card.dataset.activities
+                });
+            });
+            card.addEventListener('mouseleave', () => update(initial));
+            card.addEventListener('click', () => {
+                update({
+                    name: card.dataset.name,
+                    food: card.dataset.food,
+                    toys: card.dataset.toys,
+                    activities: card.dataset.activities
+                });
+            });
+        });
+        update(initial);
+    </script>
+</body>
+</html>
