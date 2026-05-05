@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enciclopedia de Tigres del Mundo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        header {
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #ffd700;
+            padding: 50px 20px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            animation: slideInDown 0.8s ease-out;
+        }
+        
+        header h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7);
+            animation: pulse 3s infinite;
+        }
+        
+        header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            animation: fadeIn 1.2s ease-out;
+        }
+        
+        .container {
+            max-width: 1300px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+        
+        .intro {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            animation: slideInUp 0.8s ease-out;
+            border-left: 8px solid #764ba2;
+        }
+        
+        .intro h2 {
+            color: #764ba2;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        
+        .intro p {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: #555;
+        }
+        
+        /* PESTAÑAS DE TIGRES */
+        .tabs-wrapper {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 50px;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+        
+        .tabs-header {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(100px, 1fr));
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .tab-button {
+            padding: 18px 12px;
+            background-color: transparent;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.3s ease;
+            text-align: center;
+            line-height: 1.2;
+        }
+        
+        .tab-button:hover,
+        .tab-button.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .tabs-content {
+            padding: 30px;
+        }
+        
+        .tab-panel {
+            display: none;
+        }
+        
+        .tab-panel.active {
+            display: block;
+        }
+        
+        .tab-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        
+        .tab-card .tab-image {
+            width: 100%;
+            border-radius: 15px;
+            height: 420px;
+            object-fit: cover;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+            transition: transform 0.5s ease;
+        }
+        
+        .tab-card .tab-image:hover {
+            transform: scale(1.03);
+        }
+        
+        .tab-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .tab-details h3 {
+            color: #764ba2;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        
+        .info-section {
+            margin-bottom: 22px;
+            animation: slideInUp 0.8s ease-out;
+        }
+        
+        .info-section strong {
+            color: #004e89;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+        
+        .info-section p {
+            font-size: 1em;
+            line-height: 1.7;
+            color: #444;
+        }
+        
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(140px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .detail-box {
+            background: linear-gradient(135deg, #ff6b35 0%, #004e89 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 18px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+        }
+        
+        .detail-box span {
+            display: block;
+            opacity: 0.85;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+        
+        .detail-box strong {
+            font-size: 1.4em;
+            display: block;
+        }
+        
+        .feature-list {
+            background-color: #f7f7f7;
+            border-radius: 15px;
+            padding: 22px;
+            display: grid;
+            gap: 12px;
+        }
+        
+        .feature-list p {
+            margin-bottom: 0;
+            color: #505050;
+        }
+        
+        .feature-list strong {
+            color: #764ba2;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .feature-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding-left: 24px;
+            position: relative;
+            line-height: 1.7;
+            color: #444;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #ff6b35;
+            font-weight: bold;
+        }
+        
+        .tabs-header .tab-button {
+            font-size: 0.95em;
+        }
+        
+        .tabs-header .tab-button:focus {
+            outline: none;
+        }
+        
+        .tabla-tigres {
+            background-color: white;
+            padding: 35px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            animation: slideInUp 0.8s ease-out;
+        }
+        
+        .tabla-tigres h2 {
+            color: #764ba2;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 2em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px;
+            text-align: left;
+            font-weight: bold;
+            animation: slideInDown 0.6s ease-out;
+        }
+        
+        table td {
+            padding: 18px;
+            border-bottom: 2px solid #ddd;
+            transition: all 0.3s ease;
+        }
+        
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        table tr:hover {
+            background-color: #e8f1ff;
+            transform: scale(1.01);
+        }
+        
+        .curiosidades {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            animation: slideInUp 1s ease-out;
+            border-left: 8px solid #667eea;
+        }
+        
+        .curiosidades h2 {
+            color: #764ba2;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 2em;
+        }
+        
+        .curiosidades ul {
+            list-style-position: inside;
+        }
+        
+        .curiosidades li {
+            margin-bottom: 18px;
+            padding: 12px;
+            font-size: 1em;
+            line-height: 1.7;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            animation: slideInUp 0.6s ease-out;
+        }
+        
+        .curiosidades li:hover {
+            background-color: #e8f1ff;
+            transform: translateX(10px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+        
+        .curiosidades li:before {
+            content: "🐯 ";
+            margin-right: 10px;
+        }
+        
+        footer {
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #ffd700;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            animation: slideInUp 0.8s ease-out;
+            border-top: 4px solid #764ba2;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+            
+            .tigres-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+            
+            table {
+                font-size: 0.9em;
+            }
+            
+            table th, table td {
+                padding: 12px;
+            }
+            
+            .intro, .tabla-tigres, .curiosidades {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🐯 TIGRES DEL MUNDO 🐯</h1>
+        <p>Descubre en profundidad los tipos de tigres más fascinantes del planeta</p>
+    </header>
+    
+    <div class="container">
+        <div class="intro">
+            <h2>Introducción a los Tigres</h2>
+            <p>
+                Los tigres son los felinos más grandes del mundo y uno de los depredadores más majestuosos. 
+                Estos animales son solitarios, territoriales y excelentes cazadores. Existen seis subespecies 
+                de tigres distribuidas por Asia, cada una con características únicas y adaptaciones especiales 
+                para su entorno natural. En esta página descubrirás información detallada sobre cada tipo de tigre, 
+                incluyendo su hábitat, dieta, características físicas y estado de conservación actual.
+            </p>
+        </div>
+        
+        <div class="tabs-wrapper">
+            <div class="tabs-header">
+                <button class="tab-button active" data-tab="bengala">Bengala</button>
+                <button class="tab-button" data-tab="siberia">Siberia</button>
+                <button class="tab-button" data-tab="indochina">Indochina</button>
+                <button class="tab-button" data-tab="malasia">Malasia</button>
+                <button class="tab-button" data-tab="sumatra">Sumatra</button>
+                <button class="tab-button" data-tab="caspio">Caspio</button>
+            </div>
+            <div class="tabs-content">
+                <div id="bengala" class="tab-panel active">
+                    <div class="tab-card">
+                        <img src="imagenes/Tigre_de_bengala.webp" alt="Tigre de Bengala" class="tab-image">
+                        <div class="tab-details">
+                            <h3>Tigre de Bengala</h3>
+                            <div class="detail-grid">
+                                <div class="detail-box"><span>Ubicación</span><strong>India, Bangladesh, Nepal, Bután</strong></div>
+                                <div class="detail-box"><span>Población</span><strong>~2,500</strong></div>
+                                <div class="detail-box"><span>Peso</span><strong>220 kg</strong></div>
+                                <div class="detail-box"><span>Largo</span><strong>2.7 - 3.1 m</strong></div>
+                            </div>
+                            <div class="info-section"><strong>Características</strong><p>Pelaje naranja brillante con rayas negras, vientre blanco, gran fuerza y resistencia.</p></div>
+                            <div class="info-section"><strong>Dieta</strong><p>Venados, jabalíes, búfalos acuáticos. Consume 15-25 kg diarios.</p></div>
+                            <div class="feature-list"><strong>Datos clave</strong><ul><li>Excelente nadador.</li><li>Territorios de 50-150 km².</li><li>Éxito de caza ~5%.</li></ul></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="siberia" class="tab-panel">
+                    <div class="tab-card">
+                        <img src="imagenes/tigre de siberia.webp" alt="Tigre de Siberia" class="tab-image">
+                        <div class="tab-details">
+                            <h3>Tigre de Siberia (Amur)</h3>
+                            <div class="detail-grid">
+                                <div class="detail-box"><span>Ubicación</span><strong>Lejano Oriente ruso</strong></div>
+                                <div class="detail-box"><span>Población</span><strong>500-600</strong></div>
+                                <div class="detail-box"><span>Peso</span><strong>250-300 kg</strong></div>
+                                <div class="detail-box"><span>Largo</span><strong>2.7 - 3.3 m</strong></div>
+                            </div>
+                            <div class="info-section"><strong>Características</strong><p>Pelaje espeso, adaptado al frío extremo, muy grande y musculoso.</p></div>
+                            <div class="info-section"><strong>Dieta</strong><p>Ciervos sika, jabalíes, alces. Consume 20-30 kg diarios.</p></div>
+                            <div class="feature-list"><strong>Datos clave</strong><ul><li>Felino más pesado del mundo.</li><li>Puede soportar -45°C.</li><li>Recuperación de solo 40 a 600 ejemplares.</li></ul></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="indochina" class="tab-panel">
+                    <div class="tab-card">
+                        <img src="imagenes/tigre indochina.jpg" alt="Tigre de Indochina" class="tab-image">
+                        <div class="tab-details">
+                            <h3>Tigre de Indochina</h3>
+                            <div class="detail-grid">
+                                <div class="detail-box"><span>Ubicación</span><strong>SE Asia</strong></div>
+                                <div class="detail-box"><span>Población</span><strong>~250</strong></div>
+                                <div class="detail-box"><span>Peso</span><strong>150-180 kg</strong></div>
+                                <div class="detail-box"><span>Largo</span><strong>2.4 - 2.8 m</strong></div>
+                            </div>
+                            <div class="info-section"><strong>Características</strong><p>Más pequeño, rayas rectas, color naranja oscuro y cuerpo ágil.</p></div>
+                            <div class="info-section"><strong>Dieta</strong><p>Ciervos, jabalíes muntjac. Consume 15-20 kg diarios.</p></div>
+                            <div class="feature-list"><strong>Datos clave</strong><ul><li>Hábitat en bosques secos.</li><li>Muy esquivo y nocturno.</li><li>Extremadamente amenazado.</li></ul></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="malasia" class="tab-panel">
+                    <div class="tab-card">
+                        <img src="imagenes/malasia tigre.webp" alt="Tigre de Malasia" class="tab-image">
+                        <div class="tab-details">
+                            <h3>Tigre de Malasia</h3>
+                            <div class="detail-grid">
+                                <div class="detail-box"><span>Ubicación</span><strong>Península Malaya</strong></div>
+                                <div class="detail-box"><span>Población</span><strong>250-340</strong></div>
+                                <div class="detail-box"><span>Peso</span><strong>100-150 kg</strong></div>
+                                <div class="detail-box"><span>Largo</span><strong>2.4 - 2.6 m</strong></div>
+                            </div>
+                            <div class="info-section"><strong>Características</strong><p>Tamaño pequeño, extremadamente ágil, ideal para la selva densa.</p></div>
+                            <div class="info-section"><strong>Dieta</strong><p>Jabalíes, ciervos pequeños. Consume 10-15 kg diarios.</p></div>
+                            <div class="feature-list"><strong>Datos clave</strong><ul><li>Distribución más estrecha.</li><li>Muy difícil de ver.</li><li>Sobrevive en bosques perturbados.</li></ul></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="sumatra" class="tab-panel">
+                    <div class="tab-card">
+                        <img src="imagenes/sumatran-tiger.jpg" alt="Tigre de Sumatra" class="tab-image">
+                        <div class="tab-details">
+                            <h3>Tigre de Sumatra</h3>
+                            <div class="detail-grid">
+                                <div class="detail-box"><span>Ubicación</span><strong>Sumatra, Indonesia</strong></div>
+                                <div class="detail-box"><span>Población</span><strong>~400</strong></div>
+                                <div class="detail-box"><span>Peso</span><strong>100-140 kg</strong></div>
+                                <div class="detail-box"><span>Largo</span><strong>2.4 - 2.5 m</strong></div>
+                            </div>
+                            <div class="info-section"><strong>Características</strong><p>El más pequeño, rayas densas y melena en cuello; adaptado a isla tropical.</p></div>
+                            <div class="info-section"><strong>Dieta</strong><p>Jabalíes, ciervos, primates. Consume 15-20 kg diarios.</p></div>
+                            <div class="feature-list"><strong>Datos clave</strong><ul><li>Único tigre de isla.</li><li>Rayas más densas.</li><li>En peligro crítico.</li></ul></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="caspio" class="tab-panel">
+                    <div class="tab-card">
+                        <img src="imagenes/tigre caspio.avif" alt="Tigre del Caspio" class="tab-image">
+                        <div class="tab-details">
+                            <h3>Tigre del Caspio ⚰️</h3>
+                            <div class="detail-grid">
+                                <div class="detail-box"><span>Ubicación</span><strong>Región del Caspio</strong></div>
+                                <div class="detail-box"><span>Población</span><strong>0</strong></div>
+                                <div class="detail-box"><span>Estado</span><strong>Extinto</strong></div>
+                                <div class="detail-box"><span>Último avistamiento</span><strong>1970</strong></div>
+                            </div>
+                            <div class="info-section"><strong>Historia</strong><p>Fué cazado hasta la extinción. Era similar al tigre de Amur y vivía en humedales.</p></div>
+                            <div class="info-section"><strong>Lección</strong><p>Su extinción muestra la urgencia de proteger especies y hábitats antes de perderlos.</p></div>
+                            <div class="feature-list"><strong>Datos clave</strong><ul><li>Extinto por caza y pérdida de hábitat.</li><li>Era un depredador de humedales ribereños.</li><li>Su desaparición es una advertencia para la conservación.</li></ul></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tabla-tigres">
+            <h2>📊 Comparativa Detallada de Tipos de Tigres</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo de Tigre</th>
+                        <th>Peso Promedio</th>
+                        <th>Largo Corporal</th>
+                        <th>Hábitat Principal</th>
+                        <th>Estado Conservación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Tigre de Bengala</strong></td>
+                        <td>220 kg (machos)</td>
+                        <td>2.7 - 3.1 m</td>
+                        <td>Selva tropical, manglares</td>
+                        <td>En Peligro</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tigre de Siberia</strong></td>
+                        <td>250-300 kg (machos)</td>
+                        <td>2.7 - 3.3 m</td>
+                        <td>Bosques templados fríos</td>
+                        <td>En Peligro Crítico</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tigre de Indochina</strong></td>
+                        <td>150-180 kg (machos)</td>
+                        <td>2.4 - 2.8 m</td>
+                        <td>Bosques deciduos secos</td>
+                        <td>En Peligro Crítico</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tigre de Malasia</strong></td>
+                        <td>100-150 kg (machos)</td>
+                        <td>2.4 - 2.6 m</td>
+                        <td>Selva tropical densa</td>
+                        <td>En Peligro Crítico</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tigre de Sumatra</strong></td>
+                        <td>100-140 kg (machos)</td>
+                        <td>2.4 - 2.5 m</td>
+                        <td>Bosques tropicales de isla</td>
+                        <td>En Peligro Crítico</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="tabla-tigres">
+            <h2>🍖 Dieta Detallada de los Tigres por Tipo</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo de Tigre</th>
+                        <th>Presas Principales</th>
+                        <th>Consumo Diario</th>
+                        <th>Técnica de Caza</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Tigre de Bengala</strong></td>
+                        <td>Venados sambar, chital, jabalíes, búfalos</td>
+                        <td>15-25 kg/día</td>
+                        <td>Acecho y emboscada desde agua</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tigre de Siberia</strong></td>
+                        <td>Ciervos sika, jabalíes, alces, corzos</td>
+                        <td>20-30 kg/día</td>
+                        <td>Persecución en nieve profunda</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tigre de Indochina</strong></td>
+                        <td>Ciervos, jabalíes muntjac, gaurales</td>
+                        <td>15-20 kg/día</td>
+                        <td>Acecho silencioso nocturno</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tigre de Malasia</strong></td>
+                        <td>Jabalíes, ciervos pequeños, puercoespines</td>
+                        <td>10-15 kg/día</td>
+                        <td>Caza extremadamente furtiva</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tigre de Sumatra</strong></td>
+                        <td>Jabalíes, ciervos, primates, aves grandes</td>
+                        <td>15-20 kg/día</td>
+                        <td>Acecho en selva densa tropical</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="curiosidades">
+            <h2>🐯 Datos Fascinantes Sobre los Tigres</h2>
+            <ul>
+                <li><strong>Rayas Únicas:</strong> Cada tigre tiene un patrón de rayas único, como las huellas dactilares en los humanos. ¡Ningún tigre es idéntico a otro!</li>
+                <li><strong>Saltos Extraordinarios:</strong> Los tigres pueden saltar hasta 9 metros de distancia horizontalmente en un solo salto explosivo.</li>
+                <li><strong>Visión Nocturna Excepcional:</strong> Su visión nocturna es 6 veces mejor que la de los humanos, perfecta para ser cazadores nocturnos eficientes.</li>
+                <li><strong>Rugido Poderoso:</strong> El rugido de un tigre puede escucharse a 3 kilómetros de distancia en la selva. ¡Es uno de los sonidos más poderosos del reino animal!</li>
+                <li><strong>Nados Expertos:</strong> A diferencia de otros gatos grandes, los tigres son excelentes nadadores y aman el agua, pueden nadar 30 km sin parar.</li>
+                <li><strong>Cazadores Solitarios:</strong> Son cazadores independientes, excepto durante el apareamiento y la crianza de cachorros.</li>
+                <li><strong>Territorio Extenso:</strong> Un tigre macho puede controlar un territorio de 50-200 km² según la disponibilidad de presas.</li>
+                <li><strong>Reproducción:</strong> Tienen 2-4 crías por gestación, con período de embarazo de 3-4 meses. Las madres son muy protectoras.</li>
+                <li><strong>Esperanza de Vida:</strong> En la naturaleza viven 8-15 años; en cautiverio bajo cuidado profesional hasta 25 años.</li>
+                <li><strong>Ancianos de la Selva:</strong> Son los felinos con mayor esperanza de vida entre los grandes depredadores.</li>
+                <li><strong>Lenguaje Corporal Complejo:</strong> Los tigres usan vocalizaciones, marcaje con orina, gestos y expresiones faciales para comunicarse.</li>
+                <li><strong>Protección Legal CITES:</strong> Todos los tigres están protegidos por la CITES desde 1987 (Convención sobre Comercio Internacional de Especies Amenazadas).</li>
+                <li><strong>Sin Depredadores Naturales:</strong> Los adultos no tienen depredadores naturales. Solo los humanos representan amenaza real.</li>
+                <li><strong>Flexibilidad en Dieta:</strong> Cuando tienen hambre extrema, pueden cazar desde insectos grandes hasta elefantes jóvenes.</li>
+                <li><strong>Éxito en Caza Limitado:</strong> Solo tienen éxito en el 5% de sus intentos de caza, requiriendo múltiples intentos diarios.</li>
+            </ul>
+        </div>
+        
+        <div class="curiosidades" style="border-left: 8px solid #d9534f; background-color: #fff3cd;">
+            <h2>⚠️ Estado de Conservación - Situación Crítica</h2>
+            <ul>
+                <li><strong>Pérdida de Hábitat:</strong> La deforestación y urbanización son las principales amenazas. Pierden miles de hectáreas anuales.</li>
+                <li><strong>Caza Ilegal Descontrolada:</strong> Son cazados por sus pieles valiosas y partes del cuerpo usadas en medicina tradicional.</li>
+                <li><strong>Número Crítico:</strong> Existen solo 3,000-4,000 tigres en la naturaleza actualmente. Hace un siglo había 100,000.</li>
+                <li><strong>Iniciativas de Conservación:</strong> El Proyecto Tigre de la India y programas internacionales trabajan intensamente para su protección.</li>
+                <li><strong>Meta Ambiciosa 2050:</strong> Se espera duplicar la población de tigres para 2050 a través de esfuerzos coordinados de conservación.</li>
+                <li><strong>Reservas Protegidas Globales:</strong> Se han establecido más de 100 reservas y corredores biológicos para conectar poblaciones fragmentadas.</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabPanels = document.querySelectorAll('.tab-panel');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabPanels.forEach(panel => panel.classList.remove('active'));
+
+                button.classList.add('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
+        });
+    </script>
+    
+    <footer>
+        <p>&copy; 2026 - Enciclopedia Completa de Tigres del Mundo 🐯 | Conservación de Especies en Peligro</p>
+        <p style="margin-top: 15px; opacity: 0.8;">La población mundial se recuperó de ~1,400 (2006) a ~4,000 (2024). ¡Sigue mejorando con tu ayuda!</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Los Zorros — Archivo Salvaje</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ember: #e85d04;
+    --ember-light: #f48c06;
+    --ember-dark: #9d0208;
+    --obsidian: #03040a;
+    --charcoal: #0e0e14;
+    --ash: #1a1a24;
+    --mist: #c8c8d4;
+    --snow: #f0f0f4;
+    --glow: rgba(232, 93, 4, 0.18);
+    --glow-strong: rgba(232, 93, 4, 0.45);
+  }
+ 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+ 
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--obsidian);
+    color: var(--snow);
+    overflow-x: hidden;
+    cursor: none;
+  }
+ 
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--ember);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease, opacity 0.2s;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(232, 93, 4, 0.5);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.18s ease, opacity 0.2s;
+  }
+ 
+  /* ---- HERO ---- */
+  .hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+ 
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 70% at 50% 120%, rgba(157,2,8,0.5) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 30%, rgba(232,93,4,0.12) 0%, transparent 60%),
+      var(--obsidian);
+  }
+ 
+  /* Animated particle field */
+  .particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--ember);
+    opacity: 0;
+    animation: rise var(--dur) var(--delay) infinite ease-in;
+  }
+  @keyframes rise {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    10% { opacity: var(--op); }
+    90% { opacity: var(--op); }
+    100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+  }
+ 
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--ember-light);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s forwards ease-out;
+  }
+ 
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(5rem, 14vw, 11rem);
+    font-weight: 900;
+    line-height: 0.9;
+    text-align: center;
+    background: linear-gradient(160deg, #fff9f4 30%, var(--ember-light) 65%, var(--ember-dark) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.5s forwards ease-out;
+    position: relative;
+    z-index: 2;
+  }
+ 
+  .hero-title em {
+    font-style: italic;
+    background: linear-gradient(160deg, var(--ember-light) 0%, #fff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+ 
+  .hero-sub {
+    margin-top: 1.5rem;
+    font-size: 1.05rem;
+    color: var(--mist);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    text-align: center;
+    max-width: 480px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.75s forwards ease-out;
+  }
+ 
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 0.9s 1.2s forwards ease-out;
+  }
+  .hero-scroll span {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(200,200,212,0.5);
+  }
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--ember), transparent);
+    animation: scrollPulse 2s infinite ease-in-out;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.3); }
+  }
+ 
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+ 
+  /* ---- NAV ---- */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    padding: 1.4rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.4s, backdrop-filter 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(3, 4, 10, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 0.5px solid rgba(232, 93, 4, 0.2);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--ember-light);
+    letter-spacing: 0.02em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; }
+  .nav-links a {
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mist);
+    text-decoration: none;
+    transition: color 0.25s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--ember);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--snow); }
+  .nav-links a:hover::after { width: 100%; }
+ 
+  /* ---- SECTIONS ---- */
+  section {
+    padding: 8rem 2rem;
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+ 
+  .section-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--ember);
+  }
+ 
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+ 
+  /* ---- INTRO SPLIT ---- */
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .intro-body {
+    font-size: 1.1rem;
+    color: var(--mist);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+  .intro-body p + p { margin-top: 1rem; }
+ 
+  .stat-row {
+    margin-top: 3rem;
+    display: flex;
+    gap: 2.5rem;
+  }
+  .stat-item {}
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--ember-light);
+    line-height: 1;
+    counter-reset: count var(--end);
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(200,200,212,0.5);
+    margin-top: 4px;
+  }
+ 
+  .intro-visual {
+    position: relative;
+    height: 480px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .intro-visual img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.8s ease;
+    filter: saturate(0.7) contrast(1.1);
+  }
+  .intro-visual:hover img { transform: scale(1.05); filter: saturate(1) contrast(1); }
+  .intro-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(3,4,10,0.6) 0%, transparent 50%);
+  }
+  .visual-caption {
+    position: absolute;
+    bottom: 1.5rem; left: 1.5rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(240,240,244,0.6);
+    z-index: 2;
+  }
+ 
+  /* ---- SPECIES GRID ---- */
+  .species-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5px;
+    background: rgba(232,93,4,0.08);
+    border: 1px solid rgba(232,93,4,0.08);
+  }
+ 
+  .species-card {
+    background: var(--charcoal);
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background 0.35s;
+  }
+  .species-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--ember);
+    transition: height 0.4s ease;
+  }
+  .species-card:hover { background: var(--ash); }
+  .species-card:hover::before { height: 100%; }
+ 
+  .species-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(232,93,4,0.1);
+    line-height: 1;
+    margin-bottom: 1.2rem;
+    transition: color 0.35s;
+  }
+  .species-card:hover .species-num { color: rgba(232,93,4,0.22); }
+ 
+  .species-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--snow);
+    margin-bottom: 0.6rem;
+    transition: color 0.3s;
+  }
+  .species-card:hover .species-name { color: var(--ember-light); }
+ 
+  .species-latin {
+    font-size: 0.75rem;
+    font-style: italic;
+    color: var(--ember);
+    letter-spacing: 0.06em;
+    margin-bottom: 1rem;
+  }
+ 
+  .species-desc {
+    font-size: 0.9rem;
+    color: rgba(200,200,212,0.65);
+    line-height: 1.7;
+  }
+ 
+  .species-tag {
+    display: inline-block;
+    margin-top: 1.2rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1px solid rgba(232,93,4,0.3);
+    color: var(--ember);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .species-card:hover .species-tag {
+    background: var(--ember);
+    color: var(--obsidian);
+    border-color: var(--ember);
+  }
+ 
+  /* ---- HABITAT SECTION ---- */
+  .habitat-section { background: var(--charcoal); max-width: 100%; }
+  .habitat-inner {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 8rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+ 
+  .habitat-list { margin-top: 2rem; }
+  .habitat-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s;
+  }
+  .habitat-item:hover { padding-left: 8px; }
+  .habitat-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+    filter: sepia(1) saturate(3) hue-rotate(-15deg);
+  }
+  .habitat-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--snow);
+    margin-bottom: 4px;
+  }
+  .habitat-desc {
+    font-size: 0.82rem;
+    color: rgba(200,200,212,0.5);
+    line-height: 1.6;
+  }
+ 
+  .temp-gauge {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: var(--ash);
+    border: 1px solid rgba(232,93,4,0.12);
+  }
+  .temp-gauge-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(200,200,212,0.4);
+    margin-bottom: 1.5rem;
+  }
+  .temp-track {
+    height: 6px;
+    background: linear-gradient(to right, #00d2ff, #a0f0ff, #7fff7f, #ffd700, #ff6b00, #e85d04, #9d0208);
+    border-radius: 3px;
+    position: relative;
+    margin: 0 0 0.8rem;
+  }
+  .temp-marker {
+    position: absolute;
+    width: 14px; height: 14px;
+    background: white;
+    border-radius: 50%;
+    top: 50%; transform: translate(-50%, -50%);
+    box-shadow: 0 0 12px rgba(255,255,255,0.5);
+    transition: left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .temp-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: rgba(200,200,212,0.3);
+  }
+ 
+  /* ---- GALLERY / FOOTER ---- */
+  .gallery-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: rgba(232,93,4,0.05);
+  }
+  .gallery-cell {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    position: relative;
+  }
+  .gallery-cell img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(50%) saturate(0.8);
+    transition: transform 0.7s ease, filter 0.5s ease;
+  }
+  .gallery-cell:hover img {
+    transform: scale(1.08);
+    filter: grayscale(0%) saturate(1.2);
+  }
+  .gallery-cell-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(3,4,10,0.4);
+    display: flex;
+    align-items: flex-end;
+    padding: 1.2rem;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .gallery-cell:hover .gallery-cell-overlay { opacity: 1; }
+  .gallery-cell-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(240,240,244,0.8);
+  }
+ 
+  footer {
+    padding: 4rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: rgba(232,93,4,0.2);
+    margin-bottom: 1rem;
+  }
+  .footer-copy {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(200,200,212,0.2);
+  }
+ 
+  /* ---- REVEAL ANIMATIONS ---- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.35s; }
+  .reveal-delay-4 { transition-delay: 0.5s; }
+ 
+  /* ---- DIVIDER ---- */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(232,93,4,0.3), transparent);
+    margin: 0;
+  }
+ 
+  @media (max-width: 780px) {
+    .intro-grid, .habitat-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .species-grid { grid-template-columns: 1fr; }
+    .gallery-strip { grid-template-columns: 1fr; }
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    section { padding: 5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+ 
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+ 
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">Zorros</div>
+  <div class="nav-links">
+    <a href="#intro">Especie</a>
+    <a href="#variantes">Variantes</a>
+    <a href="#habitat">Hábitat</a>
+    <a href="#galeria">Archivo</a>
+  </div>
+</nav>
+ 
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="particles" id="particles"></div>
+  <p class="hero-eyebrow">AnimalesWEB · 2026</p>
+  <h1 class="hero-title"><em>Los</em><br>Zorros</h1>
+  <p class="hero-sub">El cánido más adaptable del planeta. Desde la tundra ártica hasta el desierto ardiente.</p>
+  <div class="hero-scroll">
+    <span>Explorar</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+ 
+<div class="divider"></div>
+ 
+<!-- INTRO -->
+<section id="intro">
+  <div class="intro-grid">
+    <div>
+      <p class="section-label reveal">Clasificación</p>
+      <h2 class="section-title reveal reveal-delay-1">El cánido<br>más astuto</h2>
+      <div class="intro-body reveal reveal-delay-2">
+        <p>El zorro es un mamífero carnívoro de la familia Canidae. Su inteligencia proverbial ha inspirado leyendas en todas las culturas humanas, desde la Antigua Grecia hasta el Japón feudal.</p>
+        <p>Con más de 12 especies en el género <em>Vulpes</em>, han colonizado con éxito casi todos los biomas del planeta, una hazaña sin igual entre los cánidos.</p>
+      </div>
+      <div class="stat-row reveal reveal-delay-3">
+        <div class="stat-item">
+          <div class="stat-number" data-target="12">0</div>
+          <div class="stat-label">Especies</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="7">0</div>
+          <div class="stat-label">Continentes</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="50">0</div>
+          <div class="stat-label">Min °C resist.</div>
+        </div>
+      </div>
+    </div>
+    <div class="intro-visual reveal reveal-delay-2">
+      <img src="https://www.torontowildlifecentre.com/wp-content/uploads/2024/05/Fox-9-Cred-Ashley-Toye-scaled.jpg" alt="Zorro Rojo">
+      <span class="visual-caption">Vulpes vulpes · Zorro Rojo</span>
+    </div>
+  </div>
+</section>
+ 
+<div class="divider"></div>
+ 
+<!-- VARIANTES -->
+<section id="variantes">
+  <p class="section-label reveal">Diversidad</p>
+  <h2 class="section-title reveal reveal-delay-1">Cuatro especies<br>icónicas</h2>
+  <div class="species-grid" style="margin-top: 3rem;">
+    <div class="species-card reveal">
+      <div class="species-num">01</div>
+      <div class="species-name">Zorro Rojo</div>
+      <div class="species-latin">Vulpes vulpes</div>
+      <p class="species-desc">La especie más distribuida del mundo. Presente en Europa, Asia, América del Norte y Australia. Su adaptabilidad urbana es extraordinaria.</p>
+      <span class="species-tag">Sabana</span>
+    </div>
+    <div class="species-card reveal reveal-delay-1">
+      <div class="species-num">02</div>
+      <div class="species-name">Zorro Ártico</div>
+      <div class="species-latin">Vulpes lagopus</div>
+      <p class="species-desc">Resiste temperaturas de −50 °C. Pelaje que cambia de blanco puro en invierno a marrón en verano. Maestro del camuflaje extremo.</p>
+      <span class="species-tag">Tundra</span>
+    </div>
+    <div class="species-card reveal reveal-delay-2">
+      <div class="species-num">03</div>
+      <div class="species-name">Zorro Fennec</div>
+      <div class="species-latin">Vulpes zerda</div>
+      <p class="species-desc">El cánido más pequeño del mundo. Sus orejas descomunales irradian calor y detectan presas bajo la arena del Sáhara a decenas de metros.</p>
+      <span class="species-tag">Desierto</span>
+    </div>
+    <div class="species-card reveal reveal-delay-3">
+      <div class="species-num">04</div>
+      <div class="species-name">Zorro Gris</div>
+      <div class="species-latin">Urocyon cinereoargenteus</div>
+      <p class="species-desc">Único cánido capaz de trepar árboles. Sus garras semi-retráctiles y rotación de muñeca le permiten escalar troncos verticales con agilidad.</p>
+      <span class="species-tag">Bosque</span>
+    </div>
+  </div>
+</section>
+ 
+<div class="divider"></div>
+ 
+<!-- HABITAT -->
+<div class="habitat-section">
+  <div class="habitat-inner" id="habitat">
+    <div>
+      <p class="section-label reveal">Distribución</p>
+      <h2 class="section-title reveal reveal-delay-1">Dominio<br>planetario</h2>
+      <div class="habitat-list">
+        <div class="habitat-item reveal reveal-delay-1">
+          <span class="habitat-icon">🧊</span>
+          <div>
+            <div class="habitat-name">Tundra Ártica</div>
+            <div class="habitat-desc">Hasta −50 °C. El Zorro Ártico es el único mamífero adaptado a estos extremos sin hibernar.</div>
+          </div>
+        </div>
+        <div class="habitat-item reveal reveal-delay-2">
+          <span class="habitat-icon">🏜️</span>
+          <div>
+            <div class="habitat-name">Desiertos</div>
+            <div class="habitat-desc">El Fennec prospera en el Sáhara, el Arábigo y los desiertos de Irán donde casi no hay agua.</div>
+          </div>
+        </div>
+        <div class="habitat-item reveal reveal-delay-3">
+          <span class="habitat-icon">🌲</span>
+          <div>
+            <div class="habitat-name">Bosques Templados</div>
+            <div class="habitat-desc">El Zorro Gris domina los bosques mixtos de América. El único que sube a los árboles.</div>
+          </div>
+        </div>
+        <div class="habitat-item reveal reveal-delay-4">
+          <span class="habitat-icon">🏙️</span>
+          <div>
+            <div class="habitat-name">Entornos Urbanos</div>
+            <div class="habitat-desc">El Zorro Rojo colonizó ciudades como Londres, donde existen decenas de miles de ejemplares.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="temp-gauge reveal reveal-delay-2">
+        <div class="temp-gauge-label">Rango de temperatura por especie</div>
+        <div class="temp-track">
+          <div class="temp-marker" id="tempMarker" style="left: 50%"></div>
+        </div>
+        <div class="temp-row">
+          <span>−50 °C</span>
+          <span>0 °C</span>
+          <span>+50 °C</span>
+        </div>
+        <div style="margin-top:1.5rem; display:flex; flex-direction:column; gap:10px;">
+          <button onclick="setTemp(90, 'Fennec — Sáhara')" style="background:transparent; border:1px solid rgba(232,93,4,0.25); color:var(--mist); padding:10px 16px; text-align:left; cursor:pointer; font-family:inherit; font-size:0.82rem; transition:all 0.25s;" onmouseover="this.style.borderColor='var(--ember)'; this.style.color='var(--snow)'" onmouseout="this.style.borderColor='rgba(232,93,4,0.25)'; this.style.color='var(--mist)'">🏜️ &nbsp;Zorro Fennec</button>
+          <button onclick="setTemp(50, 'Rojo — Cosmopolita')" style="background:transparent; border:1px solid rgba(232,93,4,0.25); color:var(--mist); padding:10px 16px; text-align:left; cursor:pointer; font-family:inherit; font-size:0.82rem; transition:all 0.25s;" onmouseover="this.style.borderColor='var(--ember)'; this.style.color='var(--snow)'" onmouseout="this.style.borderColor='rgba(232,93,4,0.25)'; this.style.color='var(--mist)'">🦊 &nbsp;Zorro Rojo</button>
+          <button onclick="setTemp(5, 'Ártico — Tundra')" style="background:transparent; border:1px solid rgba(232,93,4,0.25); color:var(--mist); padding:10px 16px; text-align:left; cursor:pointer; font-family:inherit; font-size:0.82rem; transition:all 0.25s;" onmouseover="this.style.borderColor='var(--ember)'; this.style.color='var(--snow)'" onmouseout="this.style.borderColor='rgba(232,93,4,0.25)'; this.style.color='var(--mist)'">🧊 &nbsp;Zorro Ártico</button>
+        </div>
+        <div id="tempLabel" style="margin-top:1rem; font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ember); min-height:1.2em;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<div class="divider"></div>
+ 
+<!-- GALLERY -->
+<section id="galeria" style="padding-top: 5rem; padding-bottom: 2rem;">
+  <p class="section-label reveal">Archivo visual</p>
+  <h2 class="section-title reveal reveal-delay-1" style="margin-bottom: 3rem;">En su hábitat<br>natural</h2>
+</section>
+ 
+<div class="gallery-strip">
+  <div class="gallery-cell reveal">
+    <img src="https://i.pinimg.com/originals/e0/08/76/e008760f331481a6a624a0843bc0ec0f.png" alt="Zorro Rojo">
+    <div class="gallery-cell-overlay"><span class="gallery-cell-label">Zorro Rojo</span></div>
+  </div>
+  <div class="gallery-cell reveal reveal-delay-1">
+    <img src="https://theanimalmap.com/images/animals/fennec_fox2.webp" alt="Zorro Fennec">
+    <div class="gallery-cell-overlay"><span class="gallery-cell-label">Fennec</span></div>
+  </div>
+  <div class="gallery-cell reveal reveal-delay-2">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Vulpes_lagopus_in_Iceland_%28cropped_3%29.jpg" alt="Zorro Ártico">
+    <div class="gallery-cell-overlay"><span class="gallery-cell-label">Zorro Ártico</span></div>
+  </div>
+</div>
+ 
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Zorros</div>
+  <p class="footer-copy">Proyecto Ángel · Archivo Digital 2026</p>
+</footer>
+ 
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animCursor() {
+    cursor.style.transform = `translate(${mx - 6}px, ${my - 6}px)`;
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
+    requestAnimationFrame(animCursor);
+  }
+  animCursor();
+ 
+  // Nav scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+  });
+ 
+  // Particles
+  const pContainer = document.getElementById('particles');
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 4 + 2;
+    p.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random() * 100}%;
+      --dur:${Math.random() * 8 + 6}s;
+      --delay:${Math.random() * 8}s;
+      --op:${Math.random() * 0.5 + 0.1};
+    `;
+    pContainer.appendChild(p);
+  }
+ 
+  // Intersection Observer for reveals
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => obs.observe(r));
+ 
+  // Counter animation
+  function animCount(el) {
+    const target = parseInt(el.dataset.target);
+    let current = 0;
+    const step = target / 40;
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = Math.round(current) + (target === 50 ? '−' : '+');
+      if (current >= target) clearInterval(timer);
+    }, 35);
+  }
+  const statObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { animCount(e.target); statObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat-number').forEach(n => statObs.observe(n));
+ 
+  // Temp gauge
+  function setTemp(pct, label) {
+    document.getElementById('tempMarker').style.left = pct + '%';
+    document.getElementById('tempLabel').textContent = label;
+  }
+</script>
+</body>
+</html>
+ 

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>perro</title>
+</head>
+<body style="margin:0; font-family: Arial, sans-serif; background:#ffffff;">
+
+    <!-- HEADER -->
+    <header style="background:#4fc3f7; padding:25px; text-align:center; color:white;">
+        <h1>🐶 Mundo de los Perros</h1>
+        <p>Explora razas, cuidados, juegos y mucho más. Descubre todo sobre el mejor amigo del ser humano, su historia, comportamiento y cómo darles la mejor vida posible.</p>
+    </header>
+
+    <!-- MENÚ -->
+    <nav style="display:flex; justify-content:center; background:#e1f5fe; padding:10px;">
+        <button onclick="abrirTab('razas')" class="tabBtn">Razas</button>
+        <button onclick="abrirTab('alimentacion')" class="tabBtn">Alimentación</button>
+        <button onclick="abrirTab('juegos')" class="tabBtn">Juegos</button>
+    </nav>
+
+    <!-- CONTENIDO -->
+    <section style="padding:30px; max-width:1000px; margin:auto;">
+
+        <!-- RAZAS -->
+        <div id="razas" class="tab">
+            <h2 style="color:#0288d1;">🐕 Razas Populares</h2>
+
+            <h3>Labrador Retriever</h3>
+            <img src="https://placedog.net/500/300?id=1" style="width:100%; border-radius:10px;">
+            <p>El Labrador Retriever es una de las razas más populares del mundo, originaria de Canadá. Fue criado originalmente como perro de trabajo para ayudar a los pescadores a recuperar redes y peces. Su personalidad amigable, inteligencia y facilidad para el entrenamiento lo convierten en una excelente mascota familiar.</p>
+            <p>Curiosidades: Los labradores son comúnmente utilizados como perros guía y de rescate debido a su gran capacidad de aprendizaje. También tienen una gran afinidad por el agua y una mandíbula suave que les permite transportar objetos sin dañarlos.</p>
+
+            <h3>Pastor Alemán</h3>
+            <img src="https://placedog.net/500/300?id=2" style="width:100%; border-radius:10px;">
+            <p>El Pastor Alemán se originó en Alemania a finales del siglo XIX y fue desarrollado para el pastoreo de ovejas. Es conocido por su lealtad, inteligencia y capacidad para aprender tareas complejas.</p>
+            <p>Historia: Durante guerras mundiales, esta raza fue ampliamente utilizada por su disciplina y valentía. Hoy en día, es común verlo en fuerzas policiales y militares.</p>
+            <p>Dato interesante: Es uno de los perros más versátiles, capaz de desempeñar funciones de protección, rescate y compañía.</p>
+
+            <h3>Bulldog Francés</h3>
+            <img src="https://placedog.net/500/300?id=3" style="width:100%; border-radius:10px;">
+            <p>El Bulldog Francés es una raza pequeña pero robusta que se originó en Francia. Es conocido por sus características orejas en forma de murciélago y su personalidad tranquila.</p>
+            <p>Curiosidades: A pesar de su aspecto serio, son muy juguetones y cariñosos. Son ideales para vivir en apartamentos debido a su bajo nivel de actividad.</p>
+            <p>Dato adicional: No toleran bien el calor extremo debido a su estructura facial (braquicéfala).</p>
+
+            <h3>Golden Retriever</h3>
+            <img src="https://placedog.net/500/300?id=4" style="width:100%; border-radius:10px;">
+            <p>El Golden Retriever es originario de Escocia y fue criado para recuperar aves durante la caza. Es famoso por su temperamento amable y su gran inteligencia.</p>
+            <p>Historia: Fue desarrollado en el siglo XIX cruzando varias razas para obtener un perro perfecto para el trabajo en agua y tierra.</p>
+            <p>Curiosidades: Son ampliamente utilizados como perros de terapia por su carácter dócil y su habilidad para conectar emocionalmente con las personas.</p>
+
+            <h3>Husky Siberiano</h3>
+            <img src="https://placedog.net/500/300?id=5" style="width:100%; border-radius:10px;">
+            <p>El Husky Siberiano proviene de Siberia, donde fue criado por la tribu Chukchi para tirar trineos en condiciones extremas.</p>
+            <p>Dato histórico: Se hicieron famosos durante una carrera de relevos en Alaska en 1925 donde ayudaron a transportar medicinas salvando vidas.</p>
+            <p>Curiosidades: Sus ojos pueden ser de diferentes colores (heterocromía) y tienen una enorme resistencia física. Son muy activos y requieren ejercicio constante.</p>
+        </div>
+
+        <!-- ALIMENTACIÓN -->
+        <div id="alimentacion" class="tab" style="display:none;">
+            <h2 style="color:#0288d1;">🍖 Alimentación</h2>
+
+            <h3>Comida seca</h3>
+            <img src="https://placedog.net/500/300?id=6" style="width:100%; border-radius:10px;">
+            <p>La comida seca o croquetas es una de las opciones más utilizadas por su practicidad y durabilidad.</p>
+            <p>Beneficios: Ayuda a mantener los dientes limpios al reducir la acumulación de sarro. Además, es fácil de almacenar y suele ser más económica.</p>
+            <p>Dato: Existen fórmulas específicas según la edad, tamaño y necesidades del perro.</p>
+
+            <h3>Comida húmeda</h3>
+            <img src="https://placedog.net/500/300?id=7" style="width:100%; border-radius:10px;">
+            <p>La comida húmeda contiene mayor cantidad de agua, lo que la hace más sabrosa y fácil de masticar.</p>
+            <p>Curiosidades: Es ideal para perros mayores o con problemas dentales.</p>
+            <p>Dato importante: Debe conservarse adecuadamente para evitar su deterioro.</p>
+
+            <h3>Dieta natural</h3>
+            <img src="https://placedog.net/500/300?id=8" style="width:100%; border-radius:10px;">
+            <p>La dieta natural incluye alimentos frescos como carne, arroz y verduras.</p>
+            <p>Historia: Este tipo de alimentación busca imitar lo que los perros comerían en estado salvaje.</p>
+            <p>Importante: Debe ser balanceada y supervisada por un veterinario para evitar deficiencias nutricionales.</p>
+
+            <h3>Alimentos prohibidos</h3>
+            <img src="https://placedog.net/500/300?id=9" style="width:100%; border-radius:10px;">
+            <p>Existen alimentos que pueden ser altamente tóxicos para los perros.</p>
+            <p>Ejemplos: Chocolate (afecta el sistema nervioso), uvas (pueden causar daño renal), cebolla y ajo (dañan los glóbulos rojos).</p>
+            <p>Consejo: Siempre investiga antes de ofrecer alimentos humanos.</p>
+
+            <h3>Consejos adicionales</h3>
+            <p>El agua fresca debe estar disponible en todo momento. Las porciones deben ajustarse según la edad, peso y nivel de actividad del perro.</p>
+            <p>Dato extra: La sobrealimentación puede causar obesidad, uno de los problemas más comunes en mascotas.</p>
+        </div>
+
+        <!-- JUEGOS -->
+        <div id="juegos" class="tab" style="display:none;">
+            <h2 style="color:#0288d1;">🎾 Juegos y Actividades</h2>
+
+            <h3>Lanzar la pelota</h3>
+            <img src="https://placedog.net/500/300?id=10" style="width:100%; border-radius:10px;">
+            <p>Este es uno de los juegos más clásicos y efectivos para ejercitar a tu perro.</p>
+            <p>Beneficio: Mejora la condición física y fortalece el vínculo con el dueño.</p>
+
+            <h3>Juegos mentales</h3>
+            <img src="https://placedog.net/500/300?id=11" style="width:100%; border-radius:10px;">
+            <p>Los juegos mentales estimulan la inteligencia del perro.</p>
+            <p>Ejemplo: Esconder premios o usar juguetes interactivos.</p>
+            <p>Dato: Son ideales para perros que pasan mucho tiempo en casa.</p>
+
+            <h3>Paseos</h3>
+            <img src="https://placedog.net/500/300?id=12" style="width:100%; border-radius:10px;">
+            <p>Los paseos son esenciales para la salud física y emocional.</p>
+            <p>Historia: Desde tiempos antiguos, los perros han acompañado a los humanos en actividades diarias.</p>
+            <p>Beneficio: Reduce el estrés y mejora el comportamiento.</p>
+
+            <h3>Entrenamiento</h3>
+            <img src="https://placedog.net/500/300?id=13" style="width:100%; border-radius:10px;">
+            <p>El entrenamiento refuerza la obediencia y mejora la convivencia.</p>
+            <p>Curiosidad: Los perros pueden aprender más de 100 palabras o comandos.</p>
+
+            <h3>Agilidad</h3>
+            <img src="https://placedog.net/500/300?id=14" style="width:100%; border-radius:10px;">
+            <p>La agilidad es un deporte canino que incluye obstáculos.</p>
+            <p>Dato: Mejora la coordinación, velocidad y concentración del perro.</p>
+            <p>Además, es una excelente actividad para liberar energía acumulada.</p>
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="background:#4fc3f7; color:white; text-align:center; padding:20px;">
+        <p>© 2026 Mundo de los Perros | Información educativa sobre el cuidado, historia y bienestar de los perros.</p>
+    </footer>
+
+    <!-- ESTILOS -->
+    <style>
+        .tabBtn {
+            margin: 5px;
+            padding: 12px 20px;
+            border: none;
+            background: #4fc3f7;
+            color: white;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .tabBtn:hover {
+            background: #0288d1;
+        }
+
+        img {
+            margin-bottom: 20px;
+        }
+    </style>
+
+    <!-- SCRIPT -->
+    <script>
+        function abrirTab(tabId) {
+            let tabs = document.getElementsByClassName("tab");
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].style.display = "none";
+            }
+            document.getElementById(tabId).style.display = "block";
+        }
+
+        abrirTab('razas');
+    </script>
+
+</body>
+</html>
